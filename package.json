@@ -1,6 +1,6 @@
 {
   "name": "pcg_game_mgr",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "A 2D game with PDG usage from Phaser 3 Project Template",
   "main": "src/index.js",
   "scripts": {
@@ -30,6 +30,9 @@
     "webpack-merge": "^4.2.2"
   },
   "dependencies": {
+    "@babel/preset-react": "^7.8.3",
+    "babel-preset-react": "^6.24.1",
+    "path": "^0.12.7",
     "phaser": "^3.20.1"
   }
 }
