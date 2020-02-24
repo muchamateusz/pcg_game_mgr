@@ -5,7 +5,7 @@ import './index.css';
 window.onload = () => {
   new Phaser.Game({
     type: Phaser.AUTO,
-    backgroundColor: 0x87ceeb,
+    backgroundColor: 0x000000,
     width: 800,
     height: 600,
     pixelArt: true,
