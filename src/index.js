@@ -11,6 +11,12 @@ window.onload = () => {
     width: globals.mapSize,
     height: globals.mapSize,
     pixelArt: true,
+    physics: {
+      default: "arcade",
+      arcade: {
+        gravity: { y: 0, x: 0 }
+      }
+    },
     scene: new Engine(globals)
   });
   window.focus();

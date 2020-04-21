@@ -1,7 +1,5 @@
 export let globals = {
     mapSize: 600,
-    platformSize: 200,
-    mapBoundryWidth: 20,
     backgroundTileSize: 64,
     player: undefined,
     mapBoundries: undefined,
@@ -11,5 +9,6 @@ export let globals = {
     lastHeroPosition: undefined,
     cellularAutomara: {
       grid: []
-    }
+    },
+    rocks: []
 };
