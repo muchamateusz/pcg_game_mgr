@@ -9,7 +9,6 @@ export default function useCreateGame() {
     this.globals.player.body.collideWorldBounds = true;
     addBackground();
     addRocks();
-    // this.globals.rocks.createMultiple(16, "rock", 0, false);
   };
   const addRocks = () => {
     this.globals.rocks = this.add.group(this.game.world, "rocks", false);
@@ -26,8 +25,8 @@ export default function useCreateGame() {
   const addBackground = () => {
     for (let i = 0; i <= this.gWidht; i += this.globals.backgroundTileSize) {
       for (let y = 0; y <= this.gHeight; y += this.globals.backgroundTileSize) {
-        this.globals.background = this.add.sprite(i, y, "sand");
-        this.globals.background.setFlip(
+        this.globals.gameSceneBg = this.add.sprite(i, y, "sand");
+        this.globals.gameSceneBg.setFlip(
           Math.floor(Math.random() * 2),
           Math.floor(Math.random() * 2)
         );

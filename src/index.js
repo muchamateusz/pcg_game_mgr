@@ -1,23 +1,13 @@
-import Phaser from 'phaser';
-import Engine from './classes/Engine';
-import './index.css';
-import { globals } from './helpers/common-variables/globals';
-// first load 'hello world' and let the user to choose algorithm
-// but underneath show canvas-holder (grayed field or smth)
+import Phaser from "phaser";
+import Engine from "./classes/Engine";
+import TitleScreen from "./classes/TitleScreen";
+import { globals, config } from "./helpers/common-variables/globals";
+import "./index.css";
+
 window.onload = () => {
-  new Phaser.Game({
-    type: Phaser.AUTO,
-    backgroundColor: 0x000000,
-    width: globals.mapSize,
-    height: globals.mapSize,
-    pixelArt: true,
-    physics: {
-      default: "arcade",
-      arcade: {
-        gravity: { y: 0, x: 0 }
-      }
-    },
-    scene: new Engine(globals)
-  });
+  const game = new Phaser.Game(config);
+  game.scene.add("title_screen", new TitleScreen(globals));
+  game.scene.add("engine", new Engine(globals));
+  game.scene.start("title_screen");
   window.focus();
 };
