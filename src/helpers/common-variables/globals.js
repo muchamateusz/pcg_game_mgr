@@ -8,7 +8,7 @@ export let globals = {
   cursors: undefined,
   camera: undefined,
   lastHeroPosition: undefined,
-  cellularAutomara: {
+  bsp: {
     grid: [],
   },
   rocks: [],

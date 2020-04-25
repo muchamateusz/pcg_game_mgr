@@ -1,4 +1,5 @@
 import addHeroAnimations from "../add-functions/addHeroAnimations";
+import Room from "../../classes/Room";
 
 export default function useCreateGame() {
   const initiatePhysics = () => {
@@ -33,16 +34,25 @@ export default function useCreateGame() {
       }
     }
   };
-  const fillGrid = () => {
-    // for (let i = 0; i <= this.gWidht; i += 64) {
-    //   for (let y = 0; y <= this.gHeight; y += 64) {
-    //     background = this.add.sprite(i, y, "sand");
-    //     background.setFlip(
-    //       Math.floor(Math.random() * 2),
-    //       Math.floor(Math.random() * 2)
-    //     );
-    //   }
-    // }
+
+  const initiateGridGeneration = () => {
+    const firstRoom = new Room();
+    this.globals.bsp.grid.push();
+    // create an array of arrays with rooms instances
+    // create class room with width, height, flag : vertical/horizontal splittinga, point of split
+    // split the map in 4 iterations onto rooms with randomly placed lines.
+      // for (4 iterations)
+      // generate a value from 100 to 600 and save it as a point of split
+      // choose flag value comparing width to height and choose randomly if they are similar
+      // generate two rooms from initial one, save them to array and rerun yourself
+
+    // create an an inner room inside the space room.
+    // create walls
+    // connect rooms from last iteration
+    // connect one of the rooms from last iteration with one of the room from previous iteration
+    // draw a tunnel on connections
+    // place a hero i one of the rooms and an exit in another
+
   };
 
   // create rooms
@@ -50,6 +60,6 @@ export default function useCreateGame() {
   // fog map
   // close map boundries
   initiatePhysics();
-  fillGrid();
+  initiateGridGeneration();
   addHeroAnimations.call(this);
 }
