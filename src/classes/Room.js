@@ -1,13 +1,9 @@
 
 export default class Room {
-
-  width = 600;
-  height = 600;
-  splittance = Math.random() >= 0.5;
-  pointOfSplit = Math.floor(Math.random() * 600) + 100;
-
   constructor(room) {
-    super(Room);
+    if (room.id) {
+      this.id = room.id;
+    }
     if (room.width) {
       this.width = room.width;
     }
@@ -20,31 +16,46 @@ export default class Room {
     if (room.pointOfSplit) {
       this.pointOfSplit = room.pointOfSplit;
     }
+    if (room.parentId) {
+      this.parentId = room.parentId;
+    }
   }
 
+  getId () {
+    return this.id;
+  }
+  setId (id) {
+    this.id = id;
+  }
   getWidth () {
-    return width;
+    return this.width;
   }
   setWidth (width) {
     this.width = width;
   }
   getHeight () {
-    return height;
+    return this.height;
   }  
   setHeight (height) {
     this.height = height;
   }
   getSplittance () {
-    return splittance;
+    return this.splittance;
   }
   setSplittance (splittance) {
     this.splittance = splittance;
   }
   getPointOfSplit () {
-    return pointOfSplit;
+    return this.pointOfSplit;
   }  
   setPointOfSplit (pointOfSplit) {
     this.pointOfSplit = pointOfSplit;
+  }
+  getParentId () {
+    return this.parentId;
+  }  
+  setParentId (parentId) {
+    this.parentId = parentId;
   }
 
 

@@ -9,7 +9,10 @@ export let globals = {
   camera: undefined,
   lastHeroPosition: undefined,
   bsp: {
-    grid: [],
+    grid: {
+      root: [],
+      iterations: [[], [], [], []],
+    },
   },
   rocks: [],
 };
@@ -26,4 +29,9 @@ export let config = {
       gravity: { y: 0, x: 0 },
     },
   },
+};
+
+export const DIRECTION = {
+  HORIZONTAL: 'HORIZONTAL',
+  VERTICAL: 'VERTICAL'
 };
