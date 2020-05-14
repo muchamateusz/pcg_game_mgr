@@ -16,8 +16,8 @@ export default class Room {
     if (room.pointOfSplit) {
       this.pointOfSplit = room.pointOfSplit;
     }
-    if (room.parentId) {
-      this.parentId = room.parentId;
+    if (room.parent) {
+      this.parent = room.parent;
     }
   }
 
@@ -35,7 +35,7 @@ export default class Room {
   }
   getHeight () {
     return this.height;
-  }  
+  }
   setHeight (height) {
     this.height = height;
   }
@@ -47,15 +47,15 @@ export default class Room {
   }
   getPointOfSplit () {
     return this.pointOfSplit;
-  }  
+  }
   setPointOfSplit (pointOfSplit) {
     this.pointOfSplit = pointOfSplit;
   }
-  getParentId () {
-    return this.parentId;
-  }  
-  setParentId (parentId) {
-    this.parentId = parentId;
+  getParent () {
+    return this.parent;
+  }
+  setParent (parent) {
+    this.parent = parent;
   }
 
 

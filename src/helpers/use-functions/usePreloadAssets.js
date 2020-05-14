@@ -1,6 +1,7 @@
 export default function preloadAssets () {
   this.gWidht = this.sys.game.config.width;
     this.gHeight = this.sys.game.config.height;
+    this.load.image("bb", "public/assets/black_block.png");
     this.load.image("mud", "public/assets/mud.png");
     this.load.image("rock", "public/assets/rock.png");
     this.load.image("sand", "public/assets/sand.png");

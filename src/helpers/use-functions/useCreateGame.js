@@ -1,10 +1,11 @@
 import Room from "../../classes/Room";
 
 import addHeroAnimations from "../add-functions/addHeroAnimations";
-import addRocks from "../add-functions/addRocks";
+// import addRocks from "../add-functions/addRocks";
 import addBackground from "../add-functions/addBackground";
 
 import { DIRECTION } from "../common-variables/globals";
+import useSplitRoom from './useSplitRoom';
 
 export default function useCreateGame() {
   const initiatePhysics = () => {
@@ -17,82 +18,49 @@ export default function useCreateGame() {
     // addRocks.call(this);
   };
 
-  const pickWidthOrHeight = (splittance, width, height) =>
-    splittance === DIRECTION.VERTICAL ? width : height;
-
-  const calculateProperPointOfSplit = (splittance, width, height) => {
-    return Math.floor(
-      Math.random() 
-      * (pickWidthOrHeight(splittance, width, height) 
-      - Math.floor(pickWidthOrHeight(splittance, width, height) * 0.25))
-    );
-  };
-
-  const splitRoom = (finishLoopAfter, numOfExecution, prevRoom) => {
-    if (numOfExecution < finishLoopAfter) {
-      const nextRooms = [];
-      const splittance =
-        Math.random() >= 0.5 ? DIRECTION.HORIZONTAL : DIRECTION.VERTICAL;
-      const width = prevRoom.width;
-      const height = prevRoom.height;
-      // find the proper way to generate a point somewhere in the middle of new room
-      let pointOfSplit = calculateProperPointOfSplit(splittance, width, height);
-      // conditions just to be sure it won't create splittance too close of the edge
-      if (pointOfSplit < 100) {
-        pointOfSplit = pointOfSplit + 100;
-      }
-
-      if (pointOfSplit > 500) {
-        pointOfSplit = pointOfSplit - 100;
-      }
-
-      nextRooms.push(
-        new Room({
-          id: setTimeout(Date.now() + 1),
-          width: splittance === DIRECTION.VERTICAL ? pointOfSplit : width,
-          height: splittance === DIRECTION.HORIZONTAL ? pointOfSplit : height,
-          splittance: splittance,
-          parentId: prevRoom.id,
-        })
-      );
-
-      nextRooms.push(
-        new Room({
-          id: setTimeout(Date.now() + 2),
-          width:
-            splittance === DIRECTION.VERTICAL ? width - pointOfSplit : width,
-          height:
-            splittance === DIRECTION.HORIZONTAL
-              ? height - pointOfSplit
-              : height,
-          splittance: splittance,
-          parentId: prevRoom.id,
-        })
-      );
-
-      this.globals.bsp.grid.iterations[numOfExecution].push(nextRooms);
-      splitRoom(finishLoopAfter, numOfExecution + 1, nextRooms[0]);
-      splitRoom(finishLoopAfter, numOfExecution + 1, nextRooms[1]);
-    }
-  };
-
   const initiateGridGeneration = () => {
     const firstRoom = new Room({
       id: setTimeout(Date.now()),
       width: this.globals.mapSize,
-      height: this.globals.mapSize,
-      // cave: new Phaser.Geom.Rectangle(x, y, width, height),
-      splittance:
-        Math.random() >= 0.5 ? DIRECTION.HORIZONTAL : DIRECTION.VERTICAL,
-      parentId: null,
+      height: this.globals.mapSize
     });
-    const finishLoopAfter = 4; // 4 iterations will generate 16 rooms
-    const numOfExecution = 1;
-    this.globals.bsp.grid.iterations[0].push(firstRoom);
-    splitRoom(finishLoopAfter, numOfExecution, firstRoom);
+    const finishLoopAfter = 2; // 4 iterations will generate 16 rooms
+    const numOfExecution = 0;
+    this.globals.bsp.grid.root.push(firstRoom);
+    useSplitRoom.call(this, finishLoopAfter, numOfExecution, this.globals.bsp.grid.root[0]);
     console.log(this.globals.bsp.grid.iterations);
-    // create an inner room inside the space room.
-    // create walls
+
+    // draw walls
+    for (let pairs of this.globals.bsp.grid.iterations) {
+      pairs.forEach((pair, idx) => {
+        console.log(pair);
+        const stRoom = pair[0];
+        const ndRoom = pair[1];
+        const wallGenerationDirection = stRoom.splittance === DIRECTION.HORIZONTAL ? 'height' : 'width';
+        // if current splittance is different then parent splittance
+        //  start with parent.pointOfSplit
+        // else start with 0
+
+
+        let i = stRoom.parent.splittance
+          ? idx % 2
+            ? stRoom.splittance !== stRoom.parent.splittance
+              ? stRoom.parent.pointOfSplit
+              : 10
+            : 10
+          : 10;
+
+
+         do {
+            this.globals.bsp.walls = this.add.sprite(
+              stRoom.splittance === DIRECTION.HORIZONTAL ? i : stRoom.pointOfSplit,
+              stRoom.splittance === DIRECTION.VERTICAL ? i : stRoom.pointOfSplit,
+              `bb`
+            );
+          i = i + 20;
+        } while (i < (stRoom[wallGenerationDirection]) + ndRoom[wallGenerationDirection]);
+      });
+    }
     // connect rooms from last iteration
     // connect one of the rooms from last iteration with one of the room from previous iteration
     // draw a tunnel on connections

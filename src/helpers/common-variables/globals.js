@@ -13,6 +13,7 @@ export let globals = {
       root: [],
       iterations: [[], [], [], []],
     },
+    walls: []
   },
   rocks: [],
 };
