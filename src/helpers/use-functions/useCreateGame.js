@@ -24,11 +24,10 @@ export default function useCreateGame() {
       width: this.globals.mapSize,
       height: this.globals.mapSize
     });
-    const finishLoopAfter = 2; // 4 iterations will generate 16 rooms
+    const finishLoopAfter = 3; // 4 iterations will generate 16 rooms
     const numOfExecution = 0;
     this.globals.bsp.grid.root.push(firstRoom);
     useSplitRoom.call(this, finishLoopAfter, numOfExecution, this.globals.bsp.grid.root[0]);
-    console.log(this.globals.bsp.grid.iterations);
 
     // draw walls
     for (let pairs of this.globals.bsp.grid.iterations) {
@@ -36,13 +35,16 @@ export default function useCreateGame() {
         console.log(pair);
         const stRoom = pair[0];
         const ndRoom = pair[1];
-        const wallGenerationDirection = stRoom.splittance === DIRECTION.HORIZONTAL ? 'height' : 'width';
+        const wallGenerationDirection = stRoom.parent.splittance === DIRECTION.HORIZONTAL ? 'height' : 'width';
         // if current splittance is different then parent splittance
         //  start with parent.pointOfSplit
         // else start with 0
 
+        let doWhileCondition = idx % 2
+        ? (ndRoom.parent[wallGenerationDirection] + (ndRoom.parent.pointOfSplit || 0))
+        : (stRoom.parent[wallGenerationDirection]);
 
-        let i = stRoom.parent.splittance
+        let i = stRoom.splittance
           ? idx % 2
             ? stRoom.splittance !== stRoom.parent.splittance
               ? stRoom.parent.pointOfSplit
@@ -50,15 +52,19 @@ export default function useCreateGame() {
             : 10
           : 10;
 
-
+// TODO : pointOfSplit powinien wskazywać wartość globalną dla całej mapy a nie dla pokoju w którym znajdują się dzieci
+// chyba że znajdziesz sposób na to jak z iteracji na iterację sumować pointOfSplit z wysokością poprzednich parentów
+//
          do {
-            this.globals.bsp.walls = this.add.sprite(
-              stRoom.splittance === DIRECTION.HORIZONTAL ? i : stRoom.pointOfSplit,
-              stRoom.splittance === DIRECTION.VERTICAL ? i : stRoom.pointOfSplit,
-              `bb`
+            // this.globals.bsp.walls.push(
+              this.add.sprite(
+                stRoom.splittance === DIRECTION.HORIZONTAL ? i : stRoom.pointOfSplit,
+                stRoom.splittance === DIRECTION.VERTICAL ? i : stRoom.pointOfSplit,
+                `bb`
+              // )
             );
           i = i + 20;
-        } while (i < (stRoom[wallGenerationDirection]) + ndRoom[wallGenerationDirection]);
+        } while (i < doWhileCondition);
       });
     }
     // connect rooms from last iteration

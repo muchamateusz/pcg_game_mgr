@@ -1,5 +1,6 @@
 import { DIRECTION } from '../common-variables/globals';
 import Room from '../../classes/Room';
+import weightedRandom from '../add-functions/addWeightedRandom';
 
 export default function useSplitRoom (finishLoopAfter, numOfExecution, prevRoom) {
     if (numOfExecution < finishLoopAfter) {
@@ -10,13 +11,13 @@ export default function useSplitRoom (finishLoopAfter, numOfExecution, prevRoom)
       // find the proper way to generate a point somewhere in the middle of new room
       let pointOfSplit = calculateProperPointOfSplit(splittance, width, height);
       // // conditions just to be sure it won't create splittance too close of the edge
-      // if (pointOfSplit < 100) {
-      //   pointOfSplit = pointOfSplit + 100;
-      // }
+      if (pointOfSplit < 100) {
+        pointOfSplit = pointOfSplit + 100;
+      }
 
-      // if (pointOfSplit > 500) {
-      //   pointOfSplit = pointOfSplit - 100;
-      // }
+      if (pointOfSplit > 500) {
+        pointOfSplit = pointOfSplit - 100;
+      }
 
       nextRooms.push(
         new Room({
@@ -54,9 +55,5 @@ const pickWidthOrHeight = (splittance, width, height) =>
     splittance === DIRECTION.VERTICAL ? width : height;
 
 const calculateProperPointOfSplit = (splittance, width, height) => {
-return Math.floor(
-    (
-      Math.random() * Math.floor(pickWidthOrHeight(splittance, width, height) * 0.25)
-    ) + Math.floor(pickWidthOrHeight(splittance, width, height) * 0.25)
-  )
+return weightedRandom(pickWidthOrHeight(splittance, width, height), 20);
 };
