@@ -2,22 +2,14 @@ import { DIRECTION } from '../common-variables/globals';
 import Room from '../../classes/Room';
 import weightedRandom from '../add-functions/addWeightedRandom';
 
-export default function useSplitRoom (finishLoopAfter, numOfExecution, prevRoom) {
+export default function useSplitRoom (finishLoopAfter, numOfExecution, parent) {
     if (numOfExecution < finishLoopAfter) {
       const nextRooms = [];
-      const splittance = prevRoom.splittance === DIRECTION.HORIZONTAL ? DIRECTION.VERTICAL : DIRECTION.HORIZONTAL;
-      const width = prevRoom.width;
-      const height = prevRoom.height;
-      // find the proper way to generate a point somewhere in the middle of new room
-      let pointOfSplit = calculateProperPointOfSplit(splittance, width, height);
-      // // conditions just to be sure it won't create splittance too close of the edge
-      if (pointOfSplit < 100) {
-        pointOfSplit = pointOfSplit + 100;
-      }
-
-      if (pointOfSplit > 500) {
-        pointOfSplit = pointOfSplit - 100;
-      }
+      const splittance = parent.splittance === DIRECTION.HORIZONTAL ? DIRECTION.VERTICAL : DIRECTION.HORIZONTAL;
+      const width = parent.width;
+      const height = parent.height;
+      const xy = parent.xy;
+      const pointOfSplit = calculateProperPointOfSplit(xy, splittance, width, height);
 
       nextRooms.push(
         new Room({
@@ -26,22 +18,25 @@ export default function useSplitRoom (finishLoopAfter, numOfExecution, prevRoom)
           height: splittance === DIRECTION.HORIZONTAL ? pointOfSplit : height,
           splittance,
           pointOfSplit,
-          parent: prevRoom
+          xy,
+          parent
         })
       );
 
       nextRooms.push(
         new Room({
           id: setTimeout(Date.now() + 2),
-          width:
-            splittance === DIRECTION.VERTICAL ? width - pointOfSplit : width,
-          height:
-            splittance === DIRECTION.HORIZONTAL
-              ? height - pointOfSplit
-              : height,
+          width: splittance === DIRECTION.VERTICAL ? width - pointOfSplit : width,
+          height: splittance === DIRECTION.HORIZONTAL
+            ? height - pointOfSplit
+            : height,
           splittance,
           pointOfSplit,
-          parent: prevRoom
+          xy: [
+            splittance === DIRECTION.VERTICAL ? xy[0] + pointOfSplit : xy[0],
+            splittance === DIRECTION.HORIZONTAL ? xy[1] + pointOfSplit : xy[1]
+          ],
+          parent
         })
       );
 
@@ -51,9 +46,11 @@ export default function useSplitRoom (finishLoopAfter, numOfExecution, prevRoom)
     }
 }
 
-const pickWidthOrHeight = (splittance, width, height) =>
+const picker = (splittance, width, height) =>
     splittance === DIRECTION.VERTICAL ? width : height;
 
-const calculateProperPointOfSplit = (splittance, width, height) => {
-return weightedRandom(pickWidthOrHeight(splittance, width, height), 20);
+const calculateProperPointOfSplit = (xy, splittance, width, height) => {
+  const directionPointZero = picker(splittance, xy[0], xy[1]);
+  const directionSize = picker(splittance, width, height);
+  return directionPointZero + weightedRandom(directionSize, 20);
 };

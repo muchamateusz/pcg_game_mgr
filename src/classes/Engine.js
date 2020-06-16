@@ -24,6 +24,9 @@ export default class Engine extends Phaser.Scene {
     this.physics.add.collider(this.globals.player, this.globals.rocks, () =>
       this.globals.player.body.velocity.setTo(0)
     );
+    this.physics.add.collider(this.globals.player, this.globals.bsp.walls, () =>
+    this.globals.player.body.velocity.setTo(0)
+  );
 
     useManageMovements.call(this);
   }

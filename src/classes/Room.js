@@ -19,6 +19,9 @@ export default class Room {
     if (room.parent) {
       this.parent = room.parent;
     }
+    if (room.xy) {
+      this.xy = room.xy;
+    }
   }
 
   getId () {
@@ -56,6 +59,12 @@ export default class Room {
   }
   setParent (parent) {
     this.parent = parent;
+  }
+  getParent () {
+    return this.xy;
+  }
+  setParent (xy) {
+    this.xy = xy;
   }
 
 
