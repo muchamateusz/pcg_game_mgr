@@ -44,9 +44,10 @@ export default function addBspWalls () {
             : 0
           : 0
         : 0;
-
-      // TODO : pointOfSplit powinien wskazywać wartość globalną dla całej mapy a nie dla pokoju w którym znajdują się dzieci
-      // chyba że znajdziesz sposób na to jak z iteracji na iterację sumować pointOfSplit z wysokością poprzednich parentów
+      // TODO: w aktualnie rysowanej scianie wyznacz losowo miejsce na drzwi
+      // i uwzględnij to miejsce podczas losowania pointOfSplit w potomkach
+      // stwórz globalną tablicę przejść, i podczas wyznaczania każdego pointOfSplit
+      // bierz poprawkę na pozycję xy przejść..
       do {
         this.globals.bsp.walls.add(
           this.physics.add.image(
@@ -63,10 +64,4 @@ export default function addBspWalls () {
   }
 
   this.physics.world.enable(this.globals.bsp.walls);
-
-  // connect rooms from last iteration
-  // connect one of the rooms from last iteration with one of the room from previous iteration
-  // draw a tunnel on connections
-  // place a hero i one of the rooms and an exit in another
-
 }

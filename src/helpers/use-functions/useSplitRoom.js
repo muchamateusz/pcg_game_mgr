@@ -3,7 +3,9 @@ import Room from '../../classes/Room';
 import weightedRandom from '../add-functions/addWeightedRandom';
 
 export default function useSplitRoom (finishLoopAfter, numOfExecution, parent) {
+
     if (numOfExecution < finishLoopAfter) {
+
       const nextRooms = [];
       const splittance = parent.splittance === DIRECTION.HORIZONTAL ? DIRECTION.VERTICAL : DIRECTION.HORIZONTAL;
       const width = parent.width;
@@ -41,16 +43,19 @@ export default function useSplitRoom (finishLoopAfter, numOfExecution, parent) {
       );
 
       this.globals.bsp.grid.iterations[numOfExecution].push(nextRooms);
+
       useSplitRoom.call(this, finishLoopAfter, numOfExecution + 1, nextRooms[0]);
       useSplitRoom.call(this, finishLoopAfter, numOfExecution + 1, nextRooms[1]);
-    }
-}
 
+    }
+
+}
+// TODO : przenieś picker gdzieś do globali i reużywaj
 const picker = (splittance, width, height) =>
     splittance === DIRECTION.VERTICAL ? width : height;
 
 const calculateProperPointOfSplit = (xy, splittance, width, height) => {
   const directionPointZero = picker(splittance, xy[0], xy[1]);
   const directionSize = picker(splittance, width, height);
-  return directionPointZero + weightedRandom(directionSize, 20);
+  return directionPointZero + weightedRandom(directionSize, 10);
 };
