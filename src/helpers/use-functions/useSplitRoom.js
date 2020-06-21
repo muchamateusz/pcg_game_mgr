@@ -16,8 +16,12 @@ export default function useSplitRoom (finishLoopAfter, numOfExecution, parent) {
       nextRooms.push(
         new Room({
           id: setTimeout(Date.now() + 1),
-          width: splittance === DIRECTION.VERTICAL ? pointOfSplit : width,
-          height: splittance === DIRECTION.HORIZONTAL ? pointOfSplit : height,
+          width: splittance === DIRECTION.VERTICAL
+            ? pointOfSplit
+            : width,
+          height: splittance === DIRECTION.HORIZONTAL
+            ? pointOfSplit
+            : height,
           splittance,
           pointOfSplit,
           xy,
@@ -28,15 +32,21 @@ export default function useSplitRoom (finishLoopAfter, numOfExecution, parent) {
       nextRooms.push(
         new Room({
           id: setTimeout(Date.now() + 2),
-          width: splittance === DIRECTION.VERTICAL ? width - pointOfSplit : width,
+          width: splittance === DIRECTION.VERTICAL
+            ? width - (pointOfSplit - xy[0])
+            : width,
           height: splittance === DIRECTION.HORIZONTAL
-            ? height - pointOfSplit
+            ? height - (pointOfSplit - xy[1])
             : height,
           splittance,
           pointOfSplit,
           xy: [
-            splittance === DIRECTION.VERTICAL ? xy[0] + pointOfSplit : xy[0],
-            splittance === DIRECTION.HORIZONTAL ? xy[1] + pointOfSplit : xy[1]
+            splittance === DIRECTION.VERTICAL
+              ? pointOfSplit
+              : xy[0],
+            splittance === DIRECTION.HORIZONTAL
+              ? pointOfSplit
+              : xy[1]
           ],
           parent
         })
