@@ -9,7 +9,7 @@ export default function useCreateGame() {
     this.globals.player = this.add.sprite(10, 0, "dude");
     this.globals.star = this.add.sprite(this.globals.mapSize - 20, this.globals.mapSize - 20, "star");
     this.globals.star.depth = 1;
-    this.globals.player.depth = 1;
+    this.globals.player.depth = 2;
 
     this.physics.world.enable(this.globals.player);
     this.globals.player.body.collideWorldBounds = true;

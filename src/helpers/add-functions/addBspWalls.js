@@ -3,7 +3,6 @@ import { DIRECTION } from "../common-variables/globals";
 import useSplitRoom from '../use-functions/useSplitRoom';
 
 export default function addBspWalls () {
-
   this.globals.bsp.walls = this.add.group(this.game.world, "walls", false);
   this.globals.bsp.walls.active = false;
 
@@ -14,10 +13,10 @@ export default function addBspWalls () {
     xy: [0, 0]
   });
 
+  this.globals.bsp.grid.root.push(firstRoom);
+
   const finishLoopAfter = 3; // 4 iterations will generate 16 rooms
   const numOfExecution = 0;
-
-  this.globals.bsp.grid.root.push(firstRoom);
 
   useSplitRoom.call(this, finishLoopAfter, numOfExecution, this.globals.bsp.grid.root[0]);
 
@@ -25,7 +24,6 @@ export default function addBspWalls () {
   for (let pairs of this.globals.bsp.grid.iterations) {
     pairs.forEach((pair, idx) => {
 
-      console.log(pair);
       const stRoom = pair[0];
       const ndRoom = pair[1];
       const wallGenerationDirection = stRoom.parent.splittance === DIRECTION.HORIZONTAL ? 'height' : 'width';
@@ -48,6 +46,7 @@ export default function addBspWalls () {
       // i uwzględnij to miejsce podczas losowania pointOfSplit w potomkach
       // stwórz globalną tablicę przejść, i podczas wyznaczania każdego pointOfSplit
       // bierz poprawkę na pozycję xy przejść..
+      console.log(this.globals.bsp.grid.iterations);
       do {
         this.globals.bsp.walls.add(
           this.physics.add.image(

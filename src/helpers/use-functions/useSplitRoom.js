@@ -7,7 +7,7 @@ export default function useSplitRoom (finishLoopAfter, numOfExecution, parent) {
     if (numOfExecution < finishLoopAfter) {
 
       const nextRooms = [];
-      const splittance = parent.splittance === DIRECTION.HORIZONTAL ? DIRECTION.VERTICAL : DIRECTION.HORIZONTAL;
+      const splittance = (Math.round(Math.random() * 10)) % 2 ? DIRECTION.HORIZONTAL : DIRECTION.VERTICAL;
       const width = parent.width;
       const height = parent.height;
       const xy = parent.xy;
