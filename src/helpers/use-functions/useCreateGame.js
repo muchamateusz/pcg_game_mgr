@@ -16,7 +16,7 @@ export default function useCreateGame() {
 
     addBackground.call(this);
     addBspWalls.call(this);
-    // addRocks.call(this);
+    addRocks.call(this);
   };
 
   initiatePhysics();

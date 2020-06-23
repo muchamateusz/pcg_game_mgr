@@ -1,56 +1,40 @@
 import { DIRECTION } from '../commons/globalVariables';
 import Room from '../../classes/Room';
-import weightedRandom from '../add-functions/addWeightedRandom';
+import { calculateProperPointOfSplit, isSplittanceHOR } from '../commons/globalFunctions';
 
 export default function useSplitRoom (finishLoopAfter, numOfExecution, parent) {
 
     if (numOfExecution < finishLoopAfter) {
 
       const nextRooms = [];
+
+      const { width, height, xy, id } = parent;
+
       const splittance = (Math.round(Math.random() * 10)) % 2 ? DIRECTION.HORIZONTAL : DIRECTION.VERTICAL;
-      const width = parent.width;
-      const height = parent.height;
-      const xy = parent.xy;
       const pointOfSplit = calculateProperPointOfSplit(xy, splittance, width, height);
 
-      nextRooms.push(
-        new Room({
-          id: setTimeout(Date.now() + 1),
-          width: splittance === DIRECTION.VERTICAL
-            ? pointOfSplit
-            : width,
-          height: splittance === DIRECTION.HORIZONTAL
-            ? pointOfSplit
-            : height,
-          splittance,
-          pointOfSplit,
-          xy,
-          parent
-        })
-      );
+      nextRooms.push(new Room({
+        splittance,
+        pointOfSplit,
+        xy,
+        parent,
+        id: id + 1,
+        width: !isSplittanceHOR(splittance) ? pointOfSplit : width,
+        height: isSplittanceHOR(splittance) ? pointOfSplit : height
+      }));
 
-      nextRooms.push(
-        new Room({
-          id: setTimeout(Date.now() + 2),
-          width: splittance === DIRECTION.VERTICAL
-            ? width - (pointOfSplit - xy[0])
-            : width,
-          height: splittance === DIRECTION.HORIZONTAL
-            ? height - (pointOfSplit - xy[1])
-            : height,
-          splittance,
-          pointOfSplit,
-          xy: [
-            splittance === DIRECTION.VERTICAL
-              ? pointOfSplit
-              : xy[0],
-            splittance === DIRECTION.HORIZONTAL
-              ? pointOfSplit
-              : xy[1]
-          ],
-          parent
-        })
-      );
+      nextRooms.push(new Room({
+        splittance,
+        pointOfSplit,
+        parent,
+        id: id + 2,
+        width: !isSplittanceHOR(splittance) ? width - (pointOfSplit - xy[0]) : width,
+        height: isSplittanceHOR(splittance) ? height - (pointOfSplit - xy[1]) : height,
+        xy: [
+          !isSplittanceHOR(splittance) ? pointOfSplit : xy[0],
+          isSplittanceHOR(splittance) ? pointOfSplit : xy[1]
+        ]
+      }));
 
       this.globals.bsp.grid.iterations[numOfExecution].push(nextRooms);
 
@@ -60,12 +44,3 @@ export default function useSplitRoom (finishLoopAfter, numOfExecution, parent) {
     }
 
 }
-
-const picker = (splittance, width, height) =>
-    splittance === DIRECTION.VERTICAL ? width : height;
-
-const calculateProperPointOfSplit = (xy, splittance, width, height) => {
-  const directionPointZero = picker(splittance, xy[0], xy[1]);
-  const directionSize = picker(splittance, width, height);
-  return directionPointZero + weightedRandom(directionSize, 10);
-};

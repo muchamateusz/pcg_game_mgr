@@ -30,36 +30,42 @@ export default class Room {
   setId (id) {
     this.id = id;
   }
+
   getWidth () {
     return this.width;
   }
   setWidth (width) {
     this.width = width;
   }
+
   getHeight () {
     return this.height;
   }
   setHeight (height) {
     this.height = height;
   }
+
   getSplittance () {
     return this.splittance;
   }
   setSplittance (splittance) {
     this.splittance = splittance;
   }
+
   getPointOfSplit () {
     return this.pointOfSplit;
   }
   setPointOfSplit (pointOfSplit) {
     this.pointOfSplit = pointOfSplit;
   }
+
   getParent () {
     return this.parent;
   }
   setParent (parent) {
     this.parent = parent;
   }
+
   getParent () {
     return this.xy;
   }

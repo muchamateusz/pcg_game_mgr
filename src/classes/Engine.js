@@ -10,23 +10,31 @@ export default class Engine extends Phaser.Scene {
   }
 
   preload() {
+
     preloadAssets.call(this);
+
   }
 
   create() {
+
     createGame.call(this);
+
     this.physics.add.collider(this.globals.player, this.globals.rocks, () =>
       this.globals.player.body.velocity.setTo(0)
     );
+
     this.physics.add.collider(this.globals.player, this.globals.bsp.walls, () =>
       this.globals.player.body.velocity.setTo(0)
     );
+
   }
 
   update() {
+
     this.globals.player.body.velocity.setTo(0);
     this.globals.cursors = this.input.keyboard.createCursorKeys();
 
     useManageMovements.call(this);
+
   }
 }
