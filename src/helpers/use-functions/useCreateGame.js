@@ -6,8 +6,8 @@ import addBspWalls from '../add-functions/addBspWalls';
 export default function useCreateGame() {
   const initiatePhysics = () => {
     this.globals.camera = this.cameras3d.add(85).setPosition(0, 0, 200);
-    this.globals.player = this.add.sprite(10, 0, "dude");
-    this.globals.star = this.add.sprite(this.globals.mapSize - 20, this.globals.mapSize - 20, "star");
+    this.globals.player = this.add.sprite(10, 0, "HERO");
+    this.globals.star = this.add.sprite(this.globals.mapSize - 20, this.globals.mapSize - 20, "STAR");
     this.globals.star.depth = 1;
     this.globals.player.depth = 2;
 

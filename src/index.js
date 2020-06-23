@@ -1,7 +1,7 @@
 import Phaser from "phaser";
 import Engine from "./classes/Engine";
 import TitleScreen from "./classes/TitleScreen";
-import { globals, config } from "./helpers/common-variables/globals";
+import { globals, config } from "./helpers/commons/globalVariables";
 import "./index.css";
 
 window.onload = () => {

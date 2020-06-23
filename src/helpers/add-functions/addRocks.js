@@ -6,7 +6,7 @@ export default function addRocks() {
     const y = Math.floor(Math.random() * (599 - 50 + 1) + 50);
     if (x + 74 < 100 || x > 150 || y + 74 < 450 || y > 500) {
       this.globals.rocks.add(
-        this.physics.add.image(x, y, "rock").setImmovable()
+        this.physics.add.image(x, y, "ROCK").setImmovable()
       );
     }
   }

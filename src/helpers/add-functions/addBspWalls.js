@@ -1,5 +1,5 @@
 import Room from '../../classes/Room';
-import { DIRECTION } from "../common-variables/globals";
+import { DIRECTION } from "../commons/globalVariables";
 import useSplitRoom from '../use-functions/useSplitRoom';
 
 export default function addBspWalls () {
@@ -15,55 +15,70 @@ export default function addBspWalls () {
 
   this.globals.bsp.grid.root = firstRoom;
 
-  const finishLoopAfter = 3; // 4 iterations will generate 16 rooms
+  const finishLoopAfter = 2; // 4 iterations will generate 16 rooms
   const numOfExecution = 0;
 
   useSplitRoom.call(this, finishLoopAfter, numOfExecution, firstRoom);
 
   // draw walls
   this.globals.bsp.grid.iterations.forEach((setOfPairs, index) => {
-    // const setOfPairs = this.globals.bsp.grid.iterations[finishLoopAfter - 1];
-    setOfPairs.forEach((pairOfRooms, idx) => {
+    setOfPairs.forEach(pairOfRooms => {
 
       const stRoom = pairOfRooms[0];
-      const ndRoom = pairOfRooms[1];
-      const parentWallSize = stRoom.parent.splittance === DIRECTION.HORIZONTAL ? 'height' : 'width';
-      const wallPositionIdx = stRoom.parent.splittance === DIRECTION.HORIZONTAL ? 0 : 1;
 
-      // if current splittance is different then parent splittance
-      // start with parent.pointOfSplit
-      // else start with 0
-      let doWhileCondition = idx % 2
-      ? (ndRoom.parent[parentWallSize] + ndRoom.xy[wallPositionIdx])
-      : (stRoom.parent[parentWallSize] + stRoom.xy[wallPositionIdx]);
+      const {
+        parent: {
+          height,
+          width,
+          splittance,
+          pointOfSplit,
+          xy
+        },
+        splittance: childSplittance,
+        pointOfSplit: childPointOfSplit,
+        xy: childXY
+      } = stRoom;
 
-      let iteration = stRoom.splittance
-        ? idx % 2
-          ? ndRoom.splittance !== ndRoom.parent.splittance
-            ? ndRoom.parent.pointOfSplit
-            : 0
-          : 0
-        : 0;
+      const areSplitsEqual = childSplittance === splittance;
+
+      const isSplittanceHOR = split => split === DIRECTION.HORIZONTAL;
+
+      const parentHORthen1 = isSplittanceHOR(splittance) ? 1 : 0;
+      const parentHORthen0 = isSplittanceHOR(splittance) ? 0 : 1;
+
+      const child_YorX = !areSplitsEqual ? parentHORthen1 : parentHORthen0;
+
+      const getParentWidhOrHeight = condition => condition ? height : width;
+
+      const getParentWidthIfVER = getParentWidhOrHeight(isSplittanceHOR(splittance));
+      const getParentWidthIfHOR = getParentWidhOrHeight(!isSplittanceHOR(splittance));
+
+      const doWhileCondition = !areSplitsEqual
+          ? childXY[parentHORthen1] >= pointOfSplit
+            ? getParentWidthIfVER + childXY[child_YorX]
+            : getParentWidthIfVER
+          : getParentWidthIfHOR + childXY[child_YorX]
+
+
+      let iteration = xy[isSplittanceHOR(childSplittance) ? 0 : 1];
+
+      const iterationOrChildSplit = condition => condition ? iteration : childPointOfSplit
+
       // TODO: w aktualnie rysowanej scianie wyznacz losowo miejsce na drzwi
       // i uwzględnij to miejsce podczas losowania pointOfSplit w potomkach
       // stwórz globalną tablicę przejść, i podczas wyznaczania każdego pointOfSplit
       // bierz poprawkę na pozycję xy przejść..
-      console.log(setOfPairs);
-      // debugger;
-      do {
+
+      while (iteration < doWhileCondition) {
         this.globals.bsp.walls.add(
           this.physics.add.image(
-            stRoom.splittance === DIRECTION.HORIZONTAL
-              ? iteration
-              : stRoom.pointOfSplit,
-            stRoom.splittance === DIRECTION.VERTICAL
-              ? iteration
-              : stRoom.pointOfSplit,
-            `bb${index}`
+            iterationOrChildSplit(isSplittanceHOR(childSplittance)),
+            iterationOrChildSplit(!isSplittanceHOR(childSplittance)),
+            `WALL_BRICK`
           ).setImmovable()
         );
-        iteration = iteration + 5;
-      } while (iteration < doWhileCondition);
+        iteration = iteration + 1;
+      };
 
     });
 

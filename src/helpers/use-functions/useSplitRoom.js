@@ -1,4 +1,4 @@
-import { DIRECTION } from '../common-variables/globals';
+import { DIRECTION } from '../commons/globalVariables';
 import Room from '../../classes/Room';
 import weightedRandom from '../add-functions/addWeightedRandom';
 
@@ -60,7 +60,7 @@ export default function useSplitRoom (finishLoopAfter, numOfExecution, parent) {
     }
 
 }
-// TODO : przenieś picker gdzieś do globali i reużywaj
+
 const picker = (splittance, width, height) =>
     splittance === DIRECTION.VERTICAL ? width : height;
 
