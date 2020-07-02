@@ -1,4 +1,4 @@
-export default function addHeroAnimations () {
+export default function addHeroAnimations() {
   // MOVE
   this.anims.create({
     key: "front-walk",
@@ -45,4 +45,4 @@ export default function addHeroAnimations () {
     frames: [{ key: "HERO", frame: 10 }],
     frameRate: 20,
   });
-};
+}

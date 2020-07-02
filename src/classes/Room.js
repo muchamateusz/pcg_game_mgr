@@ -1,4 +1,3 @@
-
 export default class Room {
   constructor(room) {
     if (room.id) {
@@ -24,54 +23,52 @@ export default class Room {
     }
   }
 
-  getId () {
+  getId() {
     return this.id;
   }
-  setId (id) {
+  setId(id) {
     this.id = id;
   }
 
-  getWidth () {
+  getWidth() {
     return this.width;
   }
-  setWidth (width) {
+  setWidth(width) {
     this.width = width;
   }
 
-  getHeight () {
+  getHeight() {
     return this.height;
   }
-  setHeight (height) {
+  setHeight(height) {
     this.height = height;
   }
 
-  getSplittance () {
+  getSplittance() {
     return this.splittance;
   }
-  setSplittance (splittance) {
+  setSplittance(splittance) {
     this.splittance = splittance;
   }
 
-  getPointOfSplit () {
+  getPointOfSplit() {
     return this.pointOfSplit;
   }
-  setPointOfSplit (pointOfSplit) {
+  setPointOfSplit(pointOfSplit) {
     this.pointOfSplit = pointOfSplit;
   }
 
-  getParent () {
+  getParent() {
     return this.parent;
   }
-  setParent (parent) {
+  setParent(parent) {
     this.parent = parent;
   }
 
-  getParent () {
+  getParent() {
     return this.xy;
   }
-  setParent (xy) {
+  setParent(xy) {
     this.xy = xy;
   }
-
-
 }

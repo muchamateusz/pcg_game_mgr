@@ -1,66 +1,62 @@
-import { isSplittanceHOR } from '../commons/globalFunctions';
+import { isSplittanceHOR } from "../commons/globalFunctions";
 
 export default function useRoomsToDrawWalls() {
+  this.globals.bsp.grid.iterations.forEach((setOfPairs) => {
+    setOfPairs.forEach((pairOfRooms) => {
+      const {
+        parent: { height, width, splittance, pointOfSplit, xy },
+        splittance: childSplittance,
+        pointOfSplit: childPointOfSplit,
+        xy: childXY,
+      } = pairOfRooms[0];
 
-  this.globals.bsp.grid.iterations.forEach(setOfPairs => {
+      const areSplitsEqual = childSplittance === splittance;
 
-        setOfPairs.forEach(pairOfRooms => {
+      const parentHORthen1 = isSplittanceHOR(splittance) ? 1 : 0;
+      const parentHORthen0 = isSplittanceHOR(splittance) ? 0 : 1;
 
-            const {
-              parent: {
-                height,
-                width,
-                splittance,
-                pointOfSplit,
-                xy
-              },
-              splittance: childSplittance,
-              pointOfSplit: childPointOfSplit,
-              xy: childXY
-            } = pairOfRooms[0];
+      const child_YorX = !areSplitsEqual ? parentHORthen1 : parentHORthen0;
 
-            const areSplitsEqual = childSplittance === splittance;
+      const getParentWidhOrHeight = (condition) => (condition ? height : width);
 
-            const parentHORthen1 = isSplittanceHOR(splittance) ? 1 : 0;
-            const parentHORthen0 = isSplittanceHOR(splittance) ? 0 : 1;
+      const getParentWidthIfVER = getParentWidhOrHeight(
+        isSplittanceHOR(splittance)
+      );
+      const getParentWidthIfHOR = getParentWidhOrHeight(
+        !isSplittanceHOR(splittance)
+      );
 
-            const child_YorX = !areSplitsEqual ? parentHORthen1 : parentHORthen0;
+      const doWhileCondition = !areSplitsEqual
+        ? childXY[parentHORthen1] >= pointOfSplit
+          ? getParentWidthIfVER + childXY[child_YorX]
+          : getParentWidthIfVER
+        : getParentWidthIfHOR + childXY[child_YorX];
 
-            const getParentWidhOrHeight = condition => condition ? height : width;
+      let iteration = xy[isSplittanceHOR(childSplittance) ? 0 : 1];
 
-            const getParentWidthIfVER = getParentWidhOrHeight(isSplittanceHOR(splittance));
-            const getParentWidthIfHOR = getParentWidhOrHeight(!isSplittanceHOR(splittance));
+      const iterationOrChildSplit = (condition) =>
+        condition ? iteration : childPointOfSplit;
 
-            const doWhileCondition = !areSplitsEqual
-              ? childXY[parentHORthen1] >= pointOfSplit
-                ? getParentWidthIfVER + childXY[child_YorX]
-                : getParentWidthIfVER
-              : getParentWidthIfHOR + childXY[child_YorX]
+      // TODO: w aktualnie rysowanej scianie wyznacz losowo miejsce na drzwi
+      // i uwzględnij to miejsce podczas losowania pointOfSplit w potomkach
+      // stwórz globalną tablicę przejść, i podczas wyznaczania każdego pointOfSplit
+      // bierz poprawkę na pozycję xy przejść..
 
-            let iteration = xy[isSplittanceHOR(childSplittance) ? 0 : 1];
+      while (iteration < doWhileCondition) {
+        this.globals.bsp.walls.add(
+          this.physics.add
+            .image(
+              iterationOrChildSplit(isSplittanceHOR(childSplittance)),
+              iterationOrChildSplit(!isSplittanceHOR(childSplittance)),
+              `WALL_BRICK`
+            )
+            .setImmovable()
+        );
 
-            const iterationOrChildSplit = condition => condition ? iteration : childPointOfSplit
-
-            // TODO: w aktualnie rysowanej scianie wyznacz losowo miejsce na drzwi
-            // i uwzględnij to miejsce podczas losowania pointOfSplit w potomkach
-            // stwórz globalną tablicę przejść, i podczas wyznaczania każdego pointOfSplit
-            // bierz poprawkę na pozycję xy przejść..
-
-            while (iteration < doWhileCondition) {
-              this.globals.bsp.walls.add(this.physics.add.image(
-                iterationOrChildSplit(isSplittanceHOR(childSplittance)),
-                iterationOrChildSplit(!isSplittanceHOR(childSplittance)),
-                `WALL_BRICK`
-              ).setImmovable());
-
-              iteration = iteration + 1;
-
-            };
-
-        });
-
+        iteration = iteration + 1;
+      }
     });
+  });
 
   this.physics.world.enable(this.globals.bsp.walls);
-
 }

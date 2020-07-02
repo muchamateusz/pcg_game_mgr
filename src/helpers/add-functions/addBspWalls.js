@@ -1,9 +1,8 @@
-import Room from '../../classes/Room';
-import useSplitRoom from '../use-functions/useSplitRoom';
-import useRoomsToDrawWalls from '../use-functions/useRoomsToDrawWalls';
+import Room from "../../classes/Room";
+import useSplitRoom from "../use-functions/useSplitRoom";
+import useRoomsToDrawWalls from "../use-functions/useRoomsToDrawWalls";
 
-export default function addBspWalls () {
-
+export default function addBspWalls() {
   this.globals.bsp.walls = this.add.group(this.game.world, "walls", false);
 
   this.globals.bsp.walls.active = false;
@@ -12,7 +11,7 @@ export default function addBspWalls () {
     id: 0,
     width: this.globals.mapSize,
     height: this.globals.mapSize,
-    xy: [0, 0]
+    xy: [0, 0],
   });
 
   // first arg of useSplitRoom is responsible for amount of rooms

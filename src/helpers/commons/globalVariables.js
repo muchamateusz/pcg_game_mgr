@@ -13,7 +13,7 @@ export let globals = {
       root: [],
       iterations: [[], [], [], []],
     },
-    walls: []
+    walls: [],
   },
   rocks: [],
 };
@@ -33,6 +33,6 @@ export let config = {
 };
 
 export const DIRECTION = {
-  HORIZONTAL: 'HORIZONTAL',
-  VERTICAL: 'VERTICAL'
+  HORIZONTAL: "HORIZONTAL",
+  VERTICAL: "VERTICAL",
 };
