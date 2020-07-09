@@ -1,5 +1,5 @@
 export let globals = {
-  mapSize: 600,
+  mapSize: 1200,
   backgroundTileSize: 64,
   player: undefined,
   mapBoundries: undefined,
@@ -15,7 +15,12 @@ export let globals = {
     },
     walls: [],
   },
+  ca: {
+    grid: [],
+    noGoSprites: []
+  },
   rocks: [],
+  idGenerator: undefined
 };
 
 export let config = {

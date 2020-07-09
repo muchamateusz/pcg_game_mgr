@@ -6,6 +6,7 @@ export default function preloadAssets() {
   this.load.image("ROCK", "public/assets/rock.png");
   this.load.image("BACKGROUND", "public/assets/sand.png");
   this.load.image("STAR", "public/assets/star.png");
+  this.load.image("NO_GO", "public/assets/ca_no_go_zone.png");
   // this.load.image("bb0", "public/assets/black_block_5_0.png");
   // this.load.image("bb1", "public/assets/black_block_5_1.png");
   // this.load.image("bb2", "public/assets/black_block_5_2.png");

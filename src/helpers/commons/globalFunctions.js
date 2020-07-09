@@ -18,3 +18,10 @@ export const calculateProperPointOfSplit = (xy, splittance, width, height) => {
 };
 
 export const isSplittanceHOR = (split) => split === DIRECTION.HORIZONTAL;
+
+export function* uniqueIdGenerator() {
+  let id = 0;
+  while(true) {
+    yield id++;
+  }
+}
