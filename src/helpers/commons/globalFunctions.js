@@ -11,7 +11,7 @@ export const weightedRandom = (max, bellFactor) => {
   return Math.floor(result);
 };
 
-export const calculateProperPointOfSplit = (xy, splittance, width, height) => {
+export const calculateWeightedPointInWall = (xy, splittance, width, height) => {
   const directionPointZero = picker(splittance, xy[0], xy[1]);
   const directionSize = picker(splittance, width, height);
   return directionPointZero + weightedRandom(directionSize, 10);

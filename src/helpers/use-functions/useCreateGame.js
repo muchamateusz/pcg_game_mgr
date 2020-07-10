@@ -1,8 +1,8 @@
 import addHeroAnimations from "../add-functions/addHeroAnimations";
 import addBackground from "../add-functions/addBackground";
 import addCellularAutomata from "../add-functions/addCellularAutomata";
-// import addRocks from "../add-functions/addRocks";
-// import addBinarySpacePartitioning from "../add-functions/addBinarySpacePartitioning";
+import addRocks from "../add-functions/addRocks";
+import addBinarySpacePartitioning from "../add-functions/addBinarySpacePartitioning";
 
 export default function useCreateGame() {
   this.globals.camera = this.cameras3d.add(85).setPosition(0, 0, 200);

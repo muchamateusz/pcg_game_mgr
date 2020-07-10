@@ -9,7 +9,7 @@ export default function addBinarySpacePartitioning() {
   this.globals.bsp.walls.active = false;
 
   this.globals.bsp.grid.root = new Room({
-    id: 0,
+    id: '0',
     width: this.globals.mapSize,
     height: this.globals.mapSize,
     xy: [0, 0],

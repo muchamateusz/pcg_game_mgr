@@ -4,7 +4,7 @@ export default function useRoomsToDrawWalls() {
   this.globals.bsp.grid.iterations.forEach((setOfPairs) => {
     setOfPairs.forEach((pairOfRooms) => {
       const {
-        parent: { height, width, splittance, pointOfSplit, xy },
+        parent: { height, width, splittance, pointOfSplit, xy, doorCoords },
         splittance: childSplittance,
         pointOfSplit: childPointOfSplit,
         xy: childXY,
@@ -36,23 +36,46 @@ export default function useRoomsToDrawWalls() {
 
       const iterationOrChildSplit = (condition) =>
         condition ? iteration : childPointOfSplit;
-
-      // TODO: w aktualnie rysowanej scianie wyznacz losowo miejsce na drzwi
-      // i uwzględnij to miejsce podczas losowania pointOfSplit w potomkach
-      // stwórz globalną tablicę przejść, i podczas wyznaczania każdego pointOfSplit
-      // bierz poprawkę na pozycję xy przejść..
-
       while (iteration < doWhileCondition) {
-        this.globals.bsp.walls.add(
-          this.physics.add
-            .image(
-              iterationOrChildSplit(isSplittanceHOR(childSplittance)),
-              iterationOrChildSplit(!isSplittanceHOR(childSplittance)),
-              `WALL_BRICK`
-            )
-            .setImmovable()
-        );
-
+        if (
+          iteration < doorCoords ||
+          iteration > doorCoords + this.globals.doorWidth
+        ) {
+          this.globals.bsp.walls.add(
+            this.physics.add
+              .image(
+                iterationOrChildSplit(isSplittanceHOR(childSplittance)),
+                iterationOrChildSplit(!isSplittanceHOR(childSplittance)),
+                `WALL_BRICK`
+              )
+              .setImmovable()
+          );
+        }
+        if (
+          iteration === doorCoords ||
+          iteration === doorCoords + this.globals.doorWidth
+        ) {
+          for (let i = 0; i < 2; i++) {
+            this.globals.bsp.walls.add(
+              this.physics.add
+                .image(
+                  isSplittanceHOR(childSplittance) ? iteration : childPointOfSplit - 5,
+                  !isSplittanceHOR(childSplittance) ? iteration : childPointOfSplit - 5,
+                  `WALL_BRICK`
+                )
+                .setImmovable()
+            );
+            this.globals.bsp.walls.add(
+              this.physics.add
+                .image(
+                  isSplittanceHOR(childSplittance) ? iteration : childPointOfSplit + 5,
+                  !isSplittanceHOR(childSplittance) ? iteration : childPointOfSplit + 5,
+                  `WALL_BRICK`
+                )
+                .setImmovable()
+            );
+          }
+        }
         iteration = iteration + 1;
       }
     });

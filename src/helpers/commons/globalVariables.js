@@ -1,5 +1,5 @@
 export let globals = {
-  mapSize: 1200,
+  mapSize: 800,
   backgroundTileSize: 64,
   player: undefined,
   mapBoundries: undefined,
@@ -11,7 +11,7 @@ export let globals = {
   bsp: {
     grid: {
       root: [],
-      iterations: [[], [], [], []],
+      iterations: [[], [], [], [], []],
     },
     walls: [],
   },
@@ -20,7 +20,8 @@ export let globals = {
     noGoSprites: []
   },
   rocks: [],
-  idGenerator: undefined
+  idGenerator: undefined,
+  doorWidth: 80
 };
 
 export let config = {
