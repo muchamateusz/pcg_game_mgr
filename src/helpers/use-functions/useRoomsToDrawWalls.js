@@ -39,7 +39,7 @@ export default function useRoomsToDrawWalls() {
       while (iteration < doWhileCondition) {
         if (
           iteration < doorCoords ||
-          iteration > doorCoords + this.globals.doorWidth
+          iteration > doorCoords + this.globals.bsp.doorWidth
         ) {
           this.globals.bsp.walls.add(
             this.physics.add
@@ -53,7 +53,7 @@ export default function useRoomsToDrawWalls() {
         }
         if (
           iteration === doorCoords ||
-          iteration === doorCoords + this.globals.doorWidth
+          iteration === doorCoords + this.globals.bsp.doorWidth
         ) {
           for (let i = 0; i < 2; i++) {
             this.globals.bsp.walls.add(

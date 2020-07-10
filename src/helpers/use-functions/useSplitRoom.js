@@ -30,9 +30,9 @@ export default function useSplitRoom(finishLoopAfter, numOfExecution, parent) {
 
     parent.doorCoords =
       pointOfSplit > doorCoords
-        ? !(pointOfSplit > doorCoords + this.globals.doorWidth)
+        ? !(pointOfSplit > doorCoords + this.globals.bsp.doorWidth)
           ? doorCoords
-          : doorCoords - this.globals.doorWidth
+          : doorCoords - this.globals.bsp.doorWidth
         : doorCoords;
   }
   nextRooms.push(

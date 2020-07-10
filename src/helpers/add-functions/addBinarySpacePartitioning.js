@@ -16,7 +16,7 @@ export default function addBinarySpacePartitioning() {
   });
 
   // first arg of useSplitRoom is responsible for amount of rooms
-  useSplitRoom.call(this, 3, 0, this.globals.bsp.grid.root);
+  useSplitRoom.call(this, this.globals.bsp.complexity, 0, this.globals.bsp.grid.root);
   useRoomsToDrawWalls.call(this);
   addColliders.call(this, [this.globals.rocks, this.globals.bsp.walls]);
 }

@@ -8,20 +8,25 @@ export let globals = {
   cursors: undefined,
   camera: undefined,
   lastHeroPosition: undefined,
-  bsp: {
+  whichAlgorithm: 'ca',
+  bsp: { // binary space partitioning
     grid: {
       root: [],
       iterations: [[], [], [], [], []],
     },
     walls: [],
+    complexity: 3,
+    doorWidth: 80
   },
-  ca: {
+  ca: { // cellular automata
     grid: [],
-    noGoSprites: []
+    noGoSprites: [],
+    wallsAreaRatio: 0.45,
+    epochs: 7,
+    gradient: 50
   },
   rocks: [],
-  idGenerator: undefined,
-  doorWidth: 80
+  idGenerator: undefined
 };
 
 export let config = {
@@ -41,4 +46,10 @@ export let config = {
 export const DIRECTION = {
   HORIZONTAL: "HORIZONTAL",
   VERTICAL: "VERTICAL",
+};
+
+export const ALGORITHMS = {
+  BSP: "bsp",
+  CA: "ca",
+  ROCKS: "rocks"
 };
