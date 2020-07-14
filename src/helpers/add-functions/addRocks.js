@@ -1,14 +1,18 @@
+import { ALGORITHMS } from "../commons/globalVariables";
+import { placeYourHeroAndPortals } from "../commons/globalFunctions";
+
 export default function addRocks() {
-  this.globals.rocks = this.add.group(this.game.world, "rocks", false);
-  this.globals.rocks.active = false;
+  this.globals.PRNG = this.add.group(this.game.world, "PRNG", false);
+  this.globals.PRNG.active = false;
   for (let i = 0; i < 10; i += 1) {
     const x = Math.floor(Math.random() * (599 - 50 + 1) + 50);
     const y = Math.floor(Math.random() * (599 - 50 + 1) + 50);
     if (x + 74 < 100 || x > 150 || y + 74 < 450 || y > 500) {
-      this.globals.rocks.add(
+      this.globals.PRNG.add(
         this.physics.add.image(x, y, "ROCK").setImmovable()
       );
     }
   }
-  this.physics.world.enable(this.globals.rocks);
+  placeYourHeroAndPortals.call(this, ALGORITHMS.PRNG);
+  this.physics.world.enable(this.globals.PRNG);
 }

@@ -1,7 +1,7 @@
 import { isSplittanceHOR } from "../commons/globalFunctions";
 
 export default function useRoomsToDrawWalls() {
-  this.globals.bsp.grid.iterations.forEach((setOfPairs) => {
+  this.globals.BSP.grid.forEach((setOfPairs) => {
     setOfPairs.forEach((pairOfRooms) => {
       const {
         parent: { height, width, splittance, pointOfSplit, xy, doorCoords },
@@ -36,12 +36,41 @@ export default function useRoomsToDrawWalls() {
 
       const iterationOrChildSplit = (condition) =>
         condition ? iteration : childPointOfSplit;
+
+      this.globals.BSP.walls.add(
+        this.physics.add
+          .image(
+            isSplittanceHOR(childSplittance)
+              ? iteration + 10
+              : childPointOfSplit - 10,
+            !isSplittanceHOR(childSplittance)
+              ? iteration + 10
+              : childPointOfSplit - 10,
+            `WALL_BRICK`
+          )
+          .setImmovable()
+      );
+
+      this.globals.BSP.walls.add(
+        this.physics.add
+          .image(
+            isSplittanceHOR(childSplittance)
+              ? iteration + 10
+              : childPointOfSplit + 10,
+            !isSplittanceHOR(childSplittance)
+              ? iteration + 10
+              : childPointOfSplit + 10,
+            `WALL_BRICK`
+          )
+          .setImmovable()
+      );
+
       while (iteration < doWhileCondition) {
         if (
           iteration < doorCoords ||
-          iteration > doorCoords + this.globals.bsp.doorWidth
+          iteration > doorCoords + this.globals.BSP.doorWidth
         ) {
-          this.globals.bsp.walls.add(
+          this.globals.BSP.walls.add(
             this.physics.add
               .image(
                 iterationOrChildSplit(isSplittanceHOR(childSplittance)),
@@ -53,33 +82,41 @@ export default function useRoomsToDrawWalls() {
         }
         if (
           iteration === doorCoords ||
-          iteration === doorCoords + this.globals.bsp.doorWidth
+          iteration === doorCoords + this.globals.BSP.doorWidth
         ) {
           for (let i = 0; i < 2; i++) {
-            this.globals.bsp.walls.add(
+            this.globals.BSP.walls.add(
               this.physics.add
                 .image(
-                  isSplittanceHOR(childSplittance) ? iteration : childPointOfSplit - 5,
-                  !isSplittanceHOR(childSplittance) ? iteration : childPointOfSplit - 5,
+                  isSplittanceHOR(childSplittance)
+                    ? iteration
+                    : childPointOfSplit - 10,
+                  !isSplittanceHOR(childSplittance)
+                    ? iteration
+                    : childPointOfSplit - 10,
                   `WALL_BRICK`
                 )
                 .setImmovable()
             );
-            this.globals.bsp.walls.add(
+            this.globals.BSP.walls.add(
               this.physics.add
                 .image(
-                  isSplittanceHOR(childSplittance) ? iteration : childPointOfSplit + 5,
-                  !isSplittanceHOR(childSplittance) ? iteration : childPointOfSplit + 5,
+                  isSplittanceHOR(childSplittance)
+                    ? iteration
+                    : childPointOfSplit + 10,
+                  !isSplittanceHOR(childSplittance)
+                    ? iteration
+                    : childPointOfSplit + 10,
                   `WALL_BRICK`
                 )
                 .setImmovable()
             );
           }
         }
-        iteration = iteration + 1;
+        iteration = iteration + 10;
       }
     });
   });
 
-  this.physics.world.enable(this.globals.bsp.walls);
+  this.physics.world.enable(this.globals.BSP.walls);
 }

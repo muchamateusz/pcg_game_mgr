@@ -15,6 +15,9 @@ export default class Tile {
     if (tile.y) {
       this.y = tile.y;
     }
+    if (tile.visitorId) {
+      this.visitorId = tile.visitorId;
+    }
   }
 
   getId() {
@@ -50,5 +53,12 @@ export default class Tile {
   }
   setY(y) {
     this.y = y;
+  }
+
+  getvisitorId() {
+    return this.visitorId;
+  }
+  setvisitorId(visitorId) {
+    this.visitorId = visitorId;
   }
 }
