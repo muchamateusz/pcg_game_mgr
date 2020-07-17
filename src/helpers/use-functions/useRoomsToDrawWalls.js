@@ -37,37 +37,9 @@ export default function useRoomsToDrawWalls() {
       const iterationOrChildSplit = (condition) =>
         condition ? iteration : childPointOfSplit;
 
-      this.globals.BSP.walls.add(
-        this.physics.add
-          .image(
-            isSplittanceHOR(childSplittance)
-              ? iteration + 10
-              : childPointOfSplit - 10,
-            !isSplittanceHOR(childSplittance)
-              ? iteration + 10
-              : childPointOfSplit - 10,
-            `WALL_BRICK`
-          )
-          .setImmovable()
-      );
-
-      this.globals.BSP.walls.add(
-        this.physics.add
-          .image(
-            isSplittanceHOR(childSplittance)
-              ? iteration + 10
-              : childPointOfSplit + 10,
-            !isSplittanceHOR(childSplittance)
-              ? iteration + 10
-              : childPointOfSplit + 10,
-            `WALL_BRICK`
-          )
-          .setImmovable()
-      );
-
       while (iteration < doWhileCondition) {
         if (
-          iteration < doorCoords ||
+          iteration + 30 < doorCoords ||
           iteration > doorCoords + this.globals.BSP.doorWidth
         ) {
           this.globals.BSP.walls.add(
@@ -75,45 +47,12 @@ export default function useRoomsToDrawWalls() {
               .image(
                 iterationOrChildSplit(isSplittanceHOR(childSplittance)),
                 iterationOrChildSplit(!isSplittanceHOR(childSplittance)),
-                `WALL_BRICK`
+                `ICE_WALL`
               )
               .setImmovable()
           );
         }
-        if (
-          iteration === doorCoords ||
-          iteration === doorCoords + this.globals.BSP.doorWidth
-        ) {
-          for (let i = 0; i < 2; i++) {
-            this.globals.BSP.walls.add(
-              this.physics.add
-                .image(
-                  isSplittanceHOR(childSplittance)
-                    ? iteration
-                    : childPointOfSplit - 10,
-                  !isSplittanceHOR(childSplittance)
-                    ? iteration
-                    : childPointOfSplit - 10,
-                  `WALL_BRICK`
-                )
-                .setImmovable()
-            );
-            this.globals.BSP.walls.add(
-              this.physics.add
-                .image(
-                  isSplittanceHOR(childSplittance)
-                    ? iteration
-                    : childPointOfSplit + 10,
-                  !isSplittanceHOR(childSplittance)
-                    ? iteration
-                    : childPointOfSplit + 10,
-                  `WALL_BRICK`
-                )
-                .setImmovable()
-            );
-          }
-        }
-        iteration = iteration + 10;
+        iteration = iteration + 30;
       }
     });
   });

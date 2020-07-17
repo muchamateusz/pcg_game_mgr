@@ -1,6 +1,6 @@
 import addHeroAnimations from "../add-functions/addHeroAnimations";
 import addBackground from "../add-functions/addBackground";
-import addCellularAutomata from "../add-functions/addCellularAutomata";
+import CellularAutomataController from "../../algorithms/cellular-automata/CellularAutomataController";
 import addRocks from "../add-functions/addRocks";
 import addBinarySpacePartitioning from "../add-functions/addBinarySpacePartitioning";
 import addDrunkardWalk from "../add-functions/addDrunkardWalk";
@@ -14,7 +14,7 @@ export default function useCreateGame() {
       addBinarySpacePartitioning.call(this);
       break;
     case ALGORITHMS.CA:
-      addCellularAutomata.call(this);
+      CellularAutomataController.call(this);
       break;
     case ALGORITHMS.DW:
       addDrunkardWalk.call(this);

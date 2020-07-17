@@ -3,6 +3,7 @@ export default function preloadAssets() {
   this.gHeight = this.sys.game.config.height;
 
   this.load.image("WALL_BRICK", "public/assets/black_block.png");
+  this.load.image("ICE_WALL", "public/assets/ice_wall.png");
   // this.load.image("WALL_BRICK", "public/assets/green_block.png");
   // this.load.image("mud", "public/assets/mud.png");
   this.load.image("ROCK", "public/assets/rock.png");

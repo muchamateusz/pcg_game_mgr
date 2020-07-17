@@ -75,11 +75,13 @@ export function placeYourHeroAndPortals(algorythm) {
   this.globals.player.body.collideWorldBounds = true;
 }
 export const getPlayerCoords = (globals) => {
-  const { grid } = globals[globals.whichAlgorithm];
+  const { grid, primeId } = globals[globals.whichAlgorithm];
   let iterator = 0;
   let firstFreeTile = undefined;
   while (!firstFreeTile) {
-    firstFreeTile = grid[iterator].find((tile) => tile.visitorId || tile.state);
+    firstFreeTile = grid[iterator].find((tile) =>
+      primeId ? tile.visitorId === primeId : tile.visitorId
+    );
     iterator += 1;
   }
   const x = +firstFreeTile.x + 25 || +firstFreeTile.xy[0] + 25;
@@ -87,12 +89,14 @@ export const getPlayerCoords = (globals) => {
   return { x, y };
 };
 export const getPortalCoords = (globals) => {
-  const { grid } = globals[globals.whichAlgorithm];
+  const { grid, primeId } = globals[globals.whichAlgorithm];
   let iterator = grid.length - 1;
   let lastFreeTile = undefined;
   let lastFreeTiles = undefined;
   while (!lastFreeTiles) {
-    lastFreeTiles = grid[iterator].filter((tile) => tile.visitorId || tile.state);
+    lastFreeTiles = grid[iterator].filter((tile) =>
+      primeId ? tile.visitorId === primeId : tile.visitorId
+    );
     iterator -= 1;
   }
   lastFreeTile = lastFreeTiles[lastFreeTiles.length - 1];

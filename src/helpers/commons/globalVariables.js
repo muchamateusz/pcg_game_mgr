@@ -17,7 +17,7 @@ export let globals = {
   cursors: undefined,
   camera: undefined,
   lastHeroPosition: undefined,
-  whichAlgorithm: ALGORITHMS.CA,
+  whichAlgorithm: ALGORITHMS.BSP,
   BSP: { // binary space partitioning
     grid: [[], [], [], [], []],
     walls: [],
