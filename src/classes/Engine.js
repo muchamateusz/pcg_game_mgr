@@ -1,7 +1,7 @@
 import "phaser";
 import createGame from "../helpers/use-functions/useCreateGame.js";
 import preloadAssets from "../helpers/use-functions/usePreloadAssets.js";
-import useManageMovements from "../helpers/use-functions/useManageMovements.js";
+import manageMovements from "../helpers/use-functions/useManageMovements.js";
 
 export default class Engine extends Phaser.Scene {
   constructor(globals) {
@@ -20,6 +20,6 @@ export default class Engine extends Phaser.Scene {
   update() {
     this.globals.player.body.velocity.setTo(0);
     this.globals.cursors = this.input.keyboard.createCursorKeys();
-    useManageMovements.call(this);
+    manageMovements.call(this);
   }
 }

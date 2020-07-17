@@ -1,7 +1,7 @@
-import { ALGORITHMS } from "../commons/globalVariables";
-import { placeYourHeroAndPortals } from "../commons/globalFunctions";
+import { ALGORITHMS } from "../../helpers/commons/globalVariables";
+import { putHeroAndDoorOnMap } from "../../helpers/commons/globalFunctions";
 
-export default function addRocks() {
+export default function RandomlyPlaceRocksController() {
   this.globals.PRNG = this.add.group(this.game.world, "PRNG", false);
   this.globals.PRNG.active = false;
   for (let i = 0; i < 10; i += 1) {
@@ -13,6 +13,6 @@ export default function addRocks() {
       );
     }
   }
-  placeYourHeroAndPortals.call(this, ALGORITHMS.PRNG);
+  putHeroAndDoorOnMap.call(this, ALGORITHMS.PRNG);
   this.physics.world.enable(this.globals.PRNG);
 }

@@ -21,59 +21,9 @@ export const calculateWeightedPointInWall = (xy, splittance, width, height) => {
 
 export const isSplittanceHOR = (split) => split === DIRECTION.HORIZONTAL;
 
-export function* uniqueIdGenerator() {
-  let id = 1;
-  while (true) {
-    yield id++;
-  }
-}
-
 export const getRandomByRatio = (ratio) =>
   Math.round((Math.random() + Number.EPSILON) * 100) / 100 < ratio;
 
-export function placeYourHeroAndPortals(algorythm) {
-  switch (algorythm) {
-    case ALGORITHMS.BSP:
-      this.globals.player = this.add.sprite(10, 0, "HERO");
-      this.globals.portals.push(
-        this.add.sprite(
-          this.globals.mapSize - 25,
-          this.globals.mapSize - 25,
-          "DOOR"
-        )
-      );
-      break;
-    case ALGORITHMS.CA:
-      const { x: caHeroX, y: caHeroY } = getPlayerCoords(this.globals);
-      const { x: caPortalX, y: caPortalY } = getPortalCoords(this.globals);
-      this.globals.player = this.add.sprite(caHeroX, caHeroY, "HERO");
-      this.globals.portals.push(this.add.sprite(caPortalX, caPortalY, "DOOR"));
-      break;
-    case ALGORITHMS.DW:
-      const { x: dwHeroX, y: dwHeroY } = getPlayerCoords(this.globals);
-      const { x: dwPortalX, y: dwPortalY } = getPortalCoords(this.globals);
-      this.globals.player = this.add.sprite(dwHeroX, dwHeroY, "HERO");
-      this.globals.portals.push(this.add.sprite(dwPortalX, dwPortalY, "DOOR"));
-      break;
-    case ALGORITHMS.PRNG:
-      this.globals.player = this.add.sprite(10, 0, "HERO");
-      this.globals.portals.push(
-        this.add.sprite(
-          this.globals.mapSize - 25,
-          this.globals.mapSize - 25,
-          "DOOR"
-        )
-      );
-      break;
-  }
-
-  this.globals.portals.forEach((portal) => {
-    portal.depth = 1;
-  });
-  this.globals.player.depth = 2;
-  this.physics.world.enable(this.globals.player);
-  this.globals.player.body.collideWorldBounds = true;
-}
 export const getPlayerCoords = (globals) => {
   const { grid, primeId } = globals[globals.whichAlgorithm];
   let iterator = 0;
@@ -88,6 +38,7 @@ export const getPlayerCoords = (globals) => {
   const y = +firstFreeTile.y + 25 || +firstFreeTile.xy[1] + 25;
   return { x, y };
 };
+
 export const getPortalCoords = (globals) => {
   const { grid, primeId } = globals[globals.whichAlgorithm];
   let iterator = grid.length - 1;
@@ -104,3 +55,48 @@ export const getPortalCoords = (globals) => {
   const y = +lastFreeTile.y + 25 || +lastFreeTile.xy[1] + 25;
   return { x, y };
 };
+
+export function* uniqueIdGenerator() {
+  let id = 1;
+  while (true) {
+    yield id++;
+  }
+}
+
+export function putHeroAndDoorOnMap(algorythm) {
+  switch (algorythm) {
+    case ALGORITHMS.BSP:
+      this.globals.player = this.add.sprite(10, 0, "HERO");
+      this.globals.exit = this.add.sprite(
+        this.globals.mapSize - 25,
+        this.globals.mapSize - 25,
+        "DOOR"
+      );
+      break;
+    case ALGORITHMS.CA:
+      const { x: caHeroX, y: caHeroY } = getPlayerCoords(this.globals);
+      const { x: caPortalX, y: caPortalY } = getPortalCoords(this.globals);
+      this.globals.player = this.add.sprite(caHeroX, caHeroY, "HERO");
+      this.globals.exit = this.add.sprite(caPortalX, caPortalY, "DOOR");
+      break;
+    case ALGORITHMS.DW:
+      const { x: dwHeroX, y: dwHeroY } = getPlayerCoords(this.globals);
+      const { x: dwPortalX, y: dwPortalY } = getPortalCoords(this.globals);
+      this.globals.player = this.add.sprite(dwHeroX, dwHeroY, "HERO");
+      this.globals.exit = this.add.sprite(dwPortalX, dwPortalY, "DOOR");
+      break;
+    case ALGORITHMS.PRNG:
+      this.globals.player = this.add.sprite(10, 0, "HERO");
+      this.globals.exit = this.add.sprite(
+        this.globals.mapSize - 25,
+        this.globals.mapSize - 25,
+        "DOOR"
+      );
+      break;
+  }
+
+  this.globals.exit.depth = 1;
+  this.globals.player.depth = 2;
+  this.physics.world.enable(this.globals.player);
+  this.globals.player.body.collideWorldBounds = true;
+}

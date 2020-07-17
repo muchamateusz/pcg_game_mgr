@@ -1,11 +1,11 @@
-import { DIRECTION } from "../commons/globalVariables";
-import Room from "../../classes/Room";
+import { DIRECTION } from "../../../helpers/commons/globalVariables";
+import Room from "../../../classes/Room";
 import {
   isSplittanceHOR,
   calculateWeightedPointInWall,
-} from "../commons/globalFunctions";
+} from "../../../helpers/commons/globalFunctions";
 
-export default function useSplitRoom(finishLoopAfter, numOfExecution, parent) {
+export default function splitRoom(finishLoopAfter, numOfExecution, parent) {
   const nextRooms = [];
 
   const { width, height, xy, id, splittance: parentSplittance } = parent;
@@ -68,7 +68,7 @@ export default function useSplitRoom(finishLoopAfter, numOfExecution, parent) {
 
   if (numOfExecution < finishLoopAfter) {
     this.globals.BSP.grid[numOfExecution].push(nextRooms);
-    useSplitRoom.call(this, finishLoopAfter, numOfExecution + 1, nextRooms[0]);
-    useSplitRoom.call(this, finishLoopAfter, numOfExecution + 1, nextRooms[1]);
+    splitRoom.call(this, finishLoopAfter, numOfExecution + 1, nextRooms[0]);
+    splitRoom.call(this, finishLoopAfter, numOfExecution + 1, nextRooms[1]);
   }
 }
