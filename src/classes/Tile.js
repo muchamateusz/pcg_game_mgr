@@ -19,46 +19,4 @@ export default class Tile {
       this.visitorId = tile.visitorId;
     }
   }
-
-  getId() {
-    return this.id;
-  }
-  setId(id) {
-    this.id = id;
-  }
-
-  getState() {
-    return this.state;
-  }
-  setState(state) {
-    this.state = state;
-  }
-
-  getNeighbours() {
-    return this.neighbours;
-  }
-  setNeighbours(neighbours) {
-    this.neighbours = neighbours;
-  }
-
-  getX() {
-    return this.x;
-  }
-  setX(x) {
-    this.x = x;
-  }
-
-  getY() {
-    return this.y;
-  }
-  setY(y) {
-    this.y = y;
-  }
-
-  getvisitorId() {
-    return this.visitorId;
-  }
-  setvisitorId(visitorId) {
-    this.visitorId = visitorId;
-  }
 }

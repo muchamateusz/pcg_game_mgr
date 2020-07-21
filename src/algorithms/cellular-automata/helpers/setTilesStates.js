@@ -18,7 +18,6 @@ export default function setTilesStates() {
 const getState = (myself) => {
   const aliveNeighboursAmount = myself.neighbours.filter((nb) => nb.state)
     .length;
-  // const deadNeighboursAmount = myself.neighbours.filter((nb) => !nb.state)
   /*
     If a cell is a wall and less than 3 cells in the Moore neighborhood are walls, the cell changes state to a floor.
     If a cell is a floor and greater than 4 cells in the Moore neighborhood are walls, the cell changes state to a wall.

@@ -17,21 +17,19 @@ export default function drawTilesOnScreen() {
     for (let indexOfTile in this.globals.CA.grid[indexOfAxisY]) {
       indexOfTile = +indexOfTile;
       let tile = axisY[indexOfTile];
-      // if (tile.visitorId !== this.globals.CA.primeId && !tile.state) {
-        if (tile.visitorId !== this.globals.CA.primeId) {
-          this.globals.CA.noGoSprites.add(
-            this.physics.add
-              .image(+tile.x + 25, +tile.y + 25, `NO_GO`)
-              .setImmovable()
-          );
-        } else if (getRandomByRatio(this.globals.CA.starsRatio)) {
-          this.globals.CA.stars.add(
-            this.physics.add
-              .image(+tile.x + 25, +tile.y + 25, `STAR`)
-              .setImmovable()
-          );
-        }
-      // }
+      if (tile.visitorId !== this.globals.CA.primeId) {
+        this.globals.CA.noGoSprites.add(
+          this.physics.add
+            .image(+tile.x + 25, +tile.y + 25, `NO_GO`)
+            .setImmovable()
+        );
+      } else if (getRandomByRatio(this.globals.CA.starsRatio)) {
+        this.globals.CA.stars.add(
+          this.physics.add
+            .image(+tile.x + 25, +tile.y + 25, `STAR`)
+            .setImmovable()
+        );
+      }
     }
   }
   this.physics.world.enable(this.globals.CA.noGoSprites);
