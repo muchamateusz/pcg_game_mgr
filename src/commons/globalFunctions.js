@@ -100,3 +100,11 @@ export function putHeroAndDoorOnMap(algorythm) {
   this.physics.world.enable(this.globals.player);
   this.globals.player.body.collideWorldBounds = true;
 }
+
+export function addColliders(targets) {
+  for (let target of targets) {
+    this.physics.add.collider(this.globals.player, target, () =>
+      this.globals.player.body.velocity.setTo(0)
+    );
+  }
+}

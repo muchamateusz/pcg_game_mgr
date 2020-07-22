@@ -1,6 +1,6 @@
 
-import { DIRECTIONS, BIN_DIR_MAP } from "../../../helpers/commons/globalVariables";
-import { getFromGridByCoord as get } from '../../../helpers/commons/globalFunctions';
+import { DIRECTIONS, BIN_DIR_MAP } from "../../../commons/globalVariables";
+import { getFromGridByCoord as get } from '../../../commons/globalFunctions';
 
 export default function getTileByDirection(tile) {
   const { grid } = this.globals.DW;

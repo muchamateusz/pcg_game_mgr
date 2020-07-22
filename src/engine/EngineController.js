@@ -1,22 +1,22 @@
 import "phaser";
-import preloadAssets from "../helpers/use-functions/usePreloadAssets.js";
-import manageMovements from "../helpers/use-functions/useManageMovements.js";
-import addHeroAnimations from "../helpers/add-functions/addHeroAnimations";
-import addBackground from "../helpers/add-functions/addBackground";
 import CellularAutomataController from "../algorithms/cellular-automata/CellularAutomataController";
 import BinarySpacePartitioningController from "../algorithms/binary-space-partitioning/BinarySpacePartitioningController";
 import DrunkardWalkController from "../algorithms/drunkard-walk/DrunkardWalkController";
 import RandomlyPlaceRocksController from "../algorithms/randomly-place-rocks/RandomlyPlaceRocksController";
-import { ALGORITHMS } from "../helpers/commons/globalVariables";
+import { ALGORITHMS } from "../commons/globalVariables";
+import assetsPreloader from "./helpers/assetsPreloader";
+import addBackground from "./helpers/addBackground";
+import movementsManager from "./helpers/movementsManager";
+import addHeroAnimations from "./helpers/addHeroAnimations";
 
-export default class Engine extends Phaser.Scene {
+export default class EngineController extends Phaser.Scene {
   constructor(globals) {
     super("engine");
     this.globals = globals;
   }
 
   preload() {
-    preloadAssets.call(this);
+    assetsPreloader.call(this);
   }
 
   create() {
@@ -44,6 +44,6 @@ export default class Engine extends Phaser.Scene {
   update() {
     this.globals.player.body.velocity.setTo(0);
     this.globals.cursors = this.input.keyboard.createCursorKeys();
-    manageMovements.call(this);
+    movementsManager.call(this);
   }
 }

@@ -1,4 +1,4 @@
-import { getRandomByRatio } from "../../../helpers/commons/globalFunctions";
+import { getRandomByRatio } from "../../../commons/globalFunctions";
 
 export default function drawPaths() {
   this.globals.DW.drunkardPaths = this.add.group(

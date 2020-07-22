@@ -1,4 +1,4 @@
-import { isSplittanceHOR } from "../../../helpers/commons/globalFunctions";
+import { isSplittanceHOR } from "../../../commons/globalFunctions";
 
 export default function drawWalls() {
   this.globals.BSP.grid.forEach((setOfPairs) => {

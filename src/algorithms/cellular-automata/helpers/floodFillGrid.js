@@ -1,7 +1,7 @@
 import lodash from "lodash";
-import { uniqueIdGenerator } from "../../../helpers/commons/globalFunctions";
+import { uniqueIdGenerator } from "../../../commons/globalFunctions";
 import startCountingRecursively from "./startCountingRecursively";
-import { DIRECTIONS } from "../../../helpers/commons/globalVariables";
+import { DIRECTIONS } from "../../../commons/globalVariables";
 
 export default function floodFillGrid() {
   const idGenerator = uniqueIdGenerator();

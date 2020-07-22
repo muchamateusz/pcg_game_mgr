@@ -1,4 +1,4 @@
-export default function manageMovements() {
+export default function movementsManager() {
   const {
     cursors: { left, right, down, up },
   } = this.globals;

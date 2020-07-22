@@ -1,4 +1,4 @@
-export default function preloadAssets() {
+export default function assetsPreloader() {
   this.gWidht = this.sys.game.config.width;
   this.gHeight = this.sys.game.config.height;
 

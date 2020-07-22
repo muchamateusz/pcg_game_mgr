@@ -1,4 +1,4 @@
-import { getRandomByRatio } from "../../../helpers/commons/globalFunctions";
+import { getRandomByRatio } from "../../../commons/globalFunctions";
 
 export default function drawTilesOnScreen() {
   this.globals.CA.noGoSprites = this.add.group(

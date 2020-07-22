@@ -1,4 +1,4 @@
-import { getRandomByRatio, uniqueIdGenerator } from "../../../helpers/commons/globalFunctions";
+import { getRandomByRatio, uniqueIdGenerator } from "../../../commons/globalFunctions";
 import Tile from "../../../classes/Tile";
 
 export default function fillGridWithTiles() {

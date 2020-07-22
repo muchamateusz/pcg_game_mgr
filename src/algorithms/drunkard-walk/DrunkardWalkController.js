@@ -1,9 +1,8 @@
-import { uniqueIdGenerator, putHeroAndDoorOnMap } from "../../helpers/commons/globalFunctions";
-import { DIRECTIONS, ALGORITHMS } from "../../helpers/commons/globalVariables";
+import { addColliders, uniqueIdGenerator, putHeroAndDoorOnMap } from "../../commons/globalFunctions";
+import { DIRECTIONS, ALGORITHMS } from "../../commons/globalVariables";
 import Tile from "../../classes/Tile";
 import startDrunkersWalk from "./helpers/startDrunkersWalk";
 import drawPaths from "./helpers/drawPath";
-import addColliders from '../../helpers/add-functions/addColliders';
 
 export default function DrunkardWalkController() {
   const idGenerator = uniqueIdGenerator();

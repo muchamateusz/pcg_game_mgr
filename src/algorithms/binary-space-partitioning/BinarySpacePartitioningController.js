@@ -1,7 +1,6 @@
 import Room from "../../classes/Room";
-import addColliders from "../../helpers/add-functions/addColliders";
-import { ALGORITHMS } from "../../helpers/commons/globalVariables";
-import { putHeroAndDoorOnMap } from "../../helpers/commons/globalFunctions";
+import { ALGORITHMS } from "../../commons/globalVariables";
+import { addColliders, putHeroAndDoorOnMap } from "../../commons/globalFunctions";
 import splitRoom from "./helpers/splitRoom";
 import drawWalls from "./helpers/drawWalls";
 

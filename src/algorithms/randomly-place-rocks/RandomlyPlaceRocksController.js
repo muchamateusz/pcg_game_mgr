@@ -1,5 +1,5 @@
-import { ALGORITHMS } from "../../helpers/commons/globalVariables";
-import { putHeroAndDoorOnMap } from "../../helpers/commons/globalFunctions";
+import { ALGORITHMS } from "../../commons/globalVariables";
+import { putHeroAndDoorOnMap } from "../../commons/globalFunctions";
 
 export default function RandomlyPlaceRocksController() {
   this.globals.PRNG = this.add.group(this.game.world, "PRNG", false);

@@ -1,9 +1,9 @@
-import { DIRECTION } from "../../../helpers/commons/globalVariables";
+import { DIRECTION } from "../../../commons/globalVariables";
 import Room from "../../../classes/Room";
 import {
   isSplittanceHOR,
   calculateWeightedPointInWall,
-} from "../../../helpers/commons/globalFunctions";
+} from "../../../commons/globalFunctions";
 
 export default function splitRoom(finishLoopAfter, numOfExecution, parent) {
   const nextRooms = [];

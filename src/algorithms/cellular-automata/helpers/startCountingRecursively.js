@@ -1,4 +1,4 @@
-import { DIRECTIONS } from "../../../helpers/commons/globalVariables";
+import { DIRECTIONS } from "../../../commons/globalVariables";
 
 export default function startCountingRecursively(
   visitorId,
