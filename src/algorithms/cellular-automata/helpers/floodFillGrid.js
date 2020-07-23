@@ -4,7 +4,7 @@ import startCountingRecursively from "./startCountingRecursively";
 import { DIRECTIONS } from "../../../commons/globalVariables";
 
 export default function floodFillGrid() {
-  const idGenerator = uniqueIdGenerator();
+  const idGenerator = uniqueIdGenerator(0);
   for (let indexOfAxisY in this.globals.CA.grid) {
     indexOfAxisY = +indexOfAxisY;
     let axisY = this.globals.CA.grid[indexOfAxisY];
@@ -12,7 +12,7 @@ export default function floodFillGrid() {
       indexOfTile = +indexOfTile;
       let tile = axisY[indexOfTile];
       const tileId = idGenerator.next().value;
-      if (tile && tile.state && !tile.visitorId) {
+      if (tile && tile.state && tile.visitorId === undefined) {
         tile.visitorId = tileId;
         this.globals.CA.floodFill[tileId] = 1;
         startCountingRecursively.call(
@@ -25,10 +25,10 @@ export default function floodFillGrid() {
       }
     }
   }
-  let arrayOfFoodFill = Object.keys(this.globals.CA.floodFill).map((key) => ({
+  let arrayOfFloodFill = Object.keys(this.globals.CA.floodFill).map((key) => ({
     key,
     value: this.globals.CA.floodFill[key],
   }));
-  arrayOfFoodFill = lodash.sortBy(arrayOfFoodFill, ["value"]);
-  this.globals.CA.primeId = +arrayOfFoodFill[arrayOfFoodFill.length - 1].key;
+  arrayOfFloodFill = lodash.sortBy(arrayOfFloodFill, ["value"]);
+  this.globals.CA.primeId = +arrayOfFloodFill[arrayOfFloodFill.length - 1].key;
 }

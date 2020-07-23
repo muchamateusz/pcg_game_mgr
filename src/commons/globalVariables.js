@@ -6,8 +6,8 @@ export const ALGORITHMS = {
 };
 
 export let globals = {
-  mapSize: 800,
-  backgroundTileSize: 64,
+  mapSize: 800, // 600, // 852, // 1136, // 1562,
+  backgroundTileSize: 50,
   player: undefined,
   exit: undefined,
   mapBoundries: undefined,
@@ -16,12 +16,12 @@ export let globals = {
   cursors: undefined,
   camera: undefined,
   lastHeroPosition: undefined,
-  whichAlgorithm: ALGORITHMS.DW,
+  whichAlgorithm: ALGORITHMS.CA,
   BSP: {
     // binary space partitioning
     grid: [[], [], [], [], []],
     walls: [],
-    complexity: 3,
+    complexity: 5,
     doorWidth: 80,
   },
   CA: {
@@ -29,9 +29,9 @@ export let globals = {
     grid: [],
     noGoSprites: [],
     stars: [],
-    starsRatio: 0.15,
-    wallsAreaRatio: 0.5,
-    epochs: 6,
+    starsRatio: 0,
+    wallsAreaRatio: 0.3, // im większa liczba tym mniej ścian
+    epochs: 10,
     floodFill: {},
     primeId: undefined,
   },
@@ -39,9 +39,9 @@ export let globals = {
     // drunkard walk
     grid: [],
     stars: [],
-    starsRatio: 0.2,
+    starsRatio: 0,
     howManyDrunkers: 4,
-    howLongWalk: 150, // iterations
+    howLongWalk: 400, // iterations
     drunkardPaths: undefined,
   },
   PRNG: [], // rocks

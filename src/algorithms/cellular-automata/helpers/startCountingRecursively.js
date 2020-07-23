@@ -6,29 +6,31 @@ export default function startCountingRecursively(
   rowId,
   tileId
 ) {
-  const neighbours = {
-    [DIRECTIONS.N]:
-      this.globals.CA.grid[rowId - 1] &&
-      this.globals.CA.grid[rowId - 1][tileId],
-    [DIRECTIONS.E]: this.globals.CA.grid[rowId][tileId + 1],
-    [DIRECTIONS.S]:
-      this.globals.CA.grid[rowId + 1] &&
-      this.globals.CA.grid[rowId + 1][tileId],
-    [DIRECTIONS.W]: this.globals.CA.grid[rowId][tileId - 1],
-  };
   let iterator = tileId;
   while (
     this.globals.CA.grid[rowId][iterator] &&
     this.globals.CA.grid[rowId][iterator].state
   ) {
-    this.globals.CA.grid[rowId][iterator].visitorId = visitorId;
-    this.globals.CA.floodFill[visitorId] += 1;
+    const neighbours = {
+      [DIRECTIONS.N]:
+        this.globals.CA.grid[rowId - 1] &&
+        this.globals.CA.grid[rowId - 1][tileId],
+      [DIRECTIONS.E]: this.globals.CA.grid[rowId][tileId + 1],
+      [DIRECTIONS.S]:
+        this.globals.CA.grid[rowId + 1] &&
+        this.globals.CA.grid[rowId + 1][tileId],
+      [DIRECTIONS.W]: this.globals.CA.grid[rowId][tileId - 1],
+    };
+    if (!this.globals.CA.grid[rowId][iterator].visitorId) {
+      this.globals.CA.grid[rowId][iterator].visitorId = visitorId;
+      this.globals.CA.floodFill[visitorId] += 1;
+    }
     Object.keys(neighbours).forEach((key) => {
       if (
-        key !== direction &&
+        // key !== direction &&
         neighbours[key] &&
         neighbours[key].state &&
-        !neighbours[key].visitorId
+        neighbours[key].visitorId === undefined
       ) {
         startCountingRecursively.call(
           this,

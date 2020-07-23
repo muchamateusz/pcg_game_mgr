@@ -56,8 +56,11 @@ export const getPortalCoords = (globals) => {
   return { x, y };
 };
 
-export function* uniqueIdGenerator() {
+export function* uniqueIdGenerator(start) {
   let id = 1;
+  if (start) {
+    id = start;
+  }
   while (true) {
     yield id++;
   }

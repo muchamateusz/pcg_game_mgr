@@ -9,7 +9,7 @@ export default function drawTilesOnScreen() {
   this.globals.CA.noGoSprites.active = false;
   this.globals.CA.stars = this.add.group(this.game.world, "stars", false);
   this.globals.CA.stars.active = false;
-
+  
   for (let indexOfAxisY in this.globals.CA.grid) {
     indexOfAxisY = +indexOfAxisY;
     let axisY = this.globals.CA.grid[indexOfAxisY];

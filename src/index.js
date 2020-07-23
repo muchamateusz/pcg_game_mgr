@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import EngineController from "./engine/EngineController";
-import { globals, config } from "./helpers/commons/globalVariables";
+import { globals, config } from "./commons/globalVariables";
 import "./index.css";
 
 window.onload = () => {
