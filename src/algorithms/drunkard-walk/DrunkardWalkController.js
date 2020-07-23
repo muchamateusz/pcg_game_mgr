@@ -33,7 +33,7 @@ export default function DrunkardWalkController() {
       mapSize,
       tileSize,
     } = this.globals;
-    const initialCoord = (mapSize / 2) / tileSize;
+    const initialCoord = Math.round((mapSize / 2) / tileSize);
     const initialTile = this.globals.DW.grid[initialCoord][initialCoord];
     initialTile.visitorId = drunker;
     initialTile.state = DIRECTIONS[getDirectionById(drunker)];

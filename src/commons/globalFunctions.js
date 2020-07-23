@@ -43,8 +43,8 @@ export const getPortalCoords = (globals) => {
   const { grid, primeId } = globals[globals.whichAlgorithm];
   let iterator = grid.length - 1;
   let lastFreeTile = undefined;
-  let lastFreeTiles = undefined;
-  while (!lastFreeTiles) {
+  let lastFreeTiles = [];
+  while (!lastFreeTiles || !lastFreeTiles.length) {
     lastFreeTiles = grid[iterator].filter((tile) =>
       primeId ? tile.visitorId === primeId : tile.visitorId
     );
