@@ -1,4 +1,7 @@
-import { isSplittanceHOR } from "../../../commons/globalFunctions";
+import {
+  isSplittanceHOR,
+  getRandomByRatio,
+} from "../../../commons/globalFunctions";
 
 export default function drawWalls() {
   this.globals.BSP.grid.forEach((setOfPairs) => {
@@ -51,6 +54,17 @@ export default function drawWalls() {
               )
               .setImmovable()
           );
+          if (getRandomByRatio(this.globals.BSP.starsRatio)) {
+            this.globals.BSP.stars.add(
+              this.physics.add
+                .image(
+                  childXY[0] + Math.round(Math.random() * width),
+                  childXY[1] + Math.round(Math.random() * height),
+                  `STAR`
+                )
+                .setImmovable()
+            );
+          }
         }
         iteration = iteration + 30;
       }

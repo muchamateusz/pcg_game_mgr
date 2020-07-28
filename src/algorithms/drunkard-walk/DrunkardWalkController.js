@@ -1,10 +1,11 @@
-import { addColliders, uniqueIdGenerator, putHeroAndDoorOnMap } from "../../commons/globalFunctions";
+import { addColliders, uniqueIdGenerator, putHeroAndDoorOnMap, getActualPoints } from "../../commons/globalFunctions";
 import { DIRECTIONS, ALGORITHMS } from "../../commons/globalVariables";
 import Tile from "../../classes/Tile";
 import startDrunkersWalk from "./helpers/startDrunkersWalk";
 import drawPaths from "./helpers/drawPath";
 
 export default function DrunkardWalkController() {
+  console.time('DW');
   const idGenerator = uniqueIdGenerator();
   const {
     DW: { howManyDrunkers },
@@ -42,7 +43,18 @@ export default function DrunkardWalkController() {
   drawPaths.call(this);
   this.physics.world.enable(this.globals.DW.drunkardPaths);
   putHeroAndDoorOnMap.call(this, ALGORITHMS.DW);
+  this.physics.add.collider(
+    this.globals.player,
+    this.globals.DW.stars,
+    (hero, star) => {
+      this.globals.points += 1;
+      this.globals.heroSpeed += 10;
+      this.globals.pointsInstance.setText(getActualPoints.call(this));
+      star.disableBody(true, true);
+    }
+  );
   addColliders.call(this, [this.globals.DW.drunkardPaths]);
+  console.timeEnd('DW');
 }
 
 const getDirectionById = (id) =>

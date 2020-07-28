@@ -4,9 +4,9 @@ export const ALGORITHMS = {
   DW: "DW", // "DRUNKARD_WALK",
   RPR: "RPR", // "PSEUDO_RANDOM_NUMBER_GENERATION"
 };
-
 export let globals = {
-  mapSize: 800, // 600, // 852, // 1136, // 1562,
+  mapSize: 1000,
+  heroSpeed: 50,
   backgroundTileSize: 50,
   player: undefined,
   exit: undefined,
@@ -21,17 +21,20 @@ export let globals = {
     // binary space partitioning
     grid: [[], [], [], [], []],
     walls: [],
-    complexity: 5,
+    starsRatio: 0.2,
+    complexity: 3,
     doorWidth: 80,
+    stars: [],
+    starsRatio: 0.2,
   },
   CA: {
     // cellular automata
     grid: [],
     noGoSprites: [],
     stars: [],
-    starsRatio: 0,
-    wallsAreaRatio: 0.3, // im większa liczba tym mniej ścian
-    epochs: 10,
+    starsRatio: 0.2,
+    wallsAreaRatio: 0.6, // im większa liczba tym mniej ścian
+    epochs: 5,
     floodFill: {},
     primeId: undefined,
   },
@@ -39,16 +42,19 @@ export let globals = {
     // drunkard walk
     grid: [],
     stars: [],
-    starsRatio: 0,
+    starsRatio: 0.2,
     howManyDrunkers: 4,
-    howLongWalk: 400, // iterations
+    howLongWalk: 50, // iterations
     drunkardPaths: undefined,
   },
   PRNG: [], // rocks
   tileSize: 50,
   idGenerator: undefined,
+  points: 0,
 };
 
+// export let defaultGlobals = JSON.parse(JSON.stringify(globals));
+export let defaultGlobals = { ...globals };
 export let config = {
   type: Phaser.AUTO,
   backgroundColor: 0x000000,

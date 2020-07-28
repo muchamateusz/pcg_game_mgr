@@ -1,4 +1,9 @@
-import { DIRECTION, globals, ALGORITHMS } from "./globalVariables";
+import {
+  DIRECTION,
+  globals,
+  ALGORITHMS,
+  defaultGlobals,
+} from "./globalVariables";
 
 export const pickByDirection = (splittance, width, height) =>
   splittance === DIRECTION.VERTICAL ? width : height;
@@ -28,7 +33,7 @@ export const getPlayerCoords = (globals) => {
   const { grid, primeId } = globals[globals.whichAlgorithm];
   let iterator = 0;
   let firstFreeTile = undefined;
-  while (!firstFreeTile) {
+  while (!firstFreeTile && iterator < grid.length) {
     firstFreeTile = grid[iterator].find((tile) =>
       primeId ? tile.visitorId === primeId : tile.visitorId
     );
@@ -66,8 +71,8 @@ export function* uniqueIdGenerator(start) {
   }
 }
 
-export function putHeroAndDoorOnMap(algorythm) {
-  switch (algorythm) {
+export function putHeroAndDoorOnMap(algorithm) {
+  switch (algorithm) {
     case ALGORITHMS.BSP:
       this.globals.player = this.add.sprite(10, 0, "HERO");
       this.globals.exit = this.add.sprite(
@@ -97,11 +102,28 @@ export function putHeroAndDoorOnMap(algorythm) {
       );
       break;
   }
-
   this.globals.exit.depth = 1;
   this.globals.player.depth = 2;
   this.physics.world.enable(this.globals.player);
   this.globals.player.body.collideWorldBounds = true;
+  this.physics.world.enable(this.globals.exit);
+  this.globals.exit.active = false;
+  this.physics.add.collider(
+    this.globals.player,
+    this.globals.exit,
+    reload.bind(this)
+  );
+}
+
+export function reload() {
+  this.globals.points = 0;
+  this.globals[this.globals.whichAlgorithm].grid =
+    defaultGlobals[this.globals.whichAlgorithm].grid;
+  this.globals.heroSpeed =
+    defaultGlobals.heroSpeed + this.globals.heroSpeed * 0.1;
+  this.registry.destroy();
+  this.events.off();
+  this.scene.restart("engine");
 }
 
 export function addColliders(targets) {
@@ -110,4 +132,9 @@ export function addColliders(targets) {
       this.globals.player.body.velocity.setTo(0)
     );
   }
+}
+export function getActualPoints() {
+  return `${this.globals.points} / ${
+    this.globals[this.globals.whichAlgorithm].stars.children.entries.length
+  }`;
 }

@@ -4,7 +4,7 @@ import Tile from "../../../classes/Tile";
 export default function fillGridWithTiles() {
   const amountOfTiles = this.globals.mapSize / this.globals.tileSize;
   const idGenerator = uniqueIdGenerator();
-
+  this.globals.CA.grid = [];
   for (let i = 0; i < amountOfTiles; i++) {
     // fill grid with 30 x arrays - this represents Y axis
     this.globals.CA.grid[i] = [];
