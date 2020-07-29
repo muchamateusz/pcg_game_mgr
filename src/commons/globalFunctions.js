@@ -112,7 +112,7 @@ export function putHeroAndDoorOnMap(algorithm) {
   this.physics.add.collider(
     this.globals.player,
     this.globals.exit,
-    finishAndReload()
+    finishAndReload.bind(this)
   );
 }
 

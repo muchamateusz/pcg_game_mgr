@@ -36,23 +36,23 @@ export default class TitleScreen extends Phaser.Scene {
       },
     ];
     this.add.text(
-      mapSize / 2 - 300,
-      mapSize - (mapSize / 10) * 6,
+      mapSize / 2 - mapSize / 2.5,
+      mapSize - (mapSize / 12) * 6,
       "CHOOSE TYPE OF MAP GENERATOR:",
       {
         color: "yellow",
         fontFamily: 'Verdana, "Times New Roman", Tahoma, serif',
-        fontSize: "28px",
+        fontSize: 1.75 * Math.round(window.innerHeight / 100) * 1.8,
       }
     );
     options.forEach((opt) => {
       const text = this.add.text(
-        mapSize / 2 - 300,
-        mapSize - (mapSize / 10) * opt.y,
+        mapSize / 2 - mapSize / 2.5,
+        mapSize - (mapSize / 12) * opt.y,
         opt.value,
         {
           fontFamily: 'Verdana, "Times New Roman", Tahoma, serif',
-          fontSize: "24px",
+          fontSize: 1.5 * Math.round(window.innerHeight / 100) * 1.8,
         }
       );
       text.setInteractive({ useHandCursor: true });
@@ -64,16 +64,21 @@ export default class TitleScreen extends Phaser.Scene {
     });
   }
   renderTitle(mapSize) {
-    this.add.text(mapSize / 2 - 300, 100, "INFINITE STARS GAINER", {
+    this.add.text(mapSize / 2 - mapSize / 2.5, 100, "INFINITE STARS GAINER", {
       fontFamily: 'Verdana, "Times New Roman", Tahoma, serif',
-      fontSize: "50px",
+      fontSize: 3.125 * Math.round(window.innerHeight / 100) * 1.8,
       color: "lightgrey",
       fontWeight: "bold",
     });
-    this.add.text(mapSize / 2 - 300, 160, "ROGUELIKE GAME LIKE NO OTHER!", {
-      fontFamily: 'Verdana, "Times New Roman", Tahoma, serif',
-      fontSize: "18px",
-      color: "lightgrey",
-    });
+    this.add.text(
+      mapSize / 2 - mapSize / 2.5,
+      1.125 * Math.round(window.innerHeight / 100) * 10,
+      "ROGUELIKE GAME LIKE NO OTHER!",
+      {
+        fontFamily: 'Verdana, "Times New Roman", Tahoma, serif',
+        fontSize: 1.125 * Math.round(window.innerHeight / 100) * 1.8,
+        color: "lightgrey",
+      }
+    );
   }
 }
