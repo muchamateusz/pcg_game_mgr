@@ -54,7 +54,7 @@ export default function drawWalls() {
               )
               .setImmovable()
           );
-          if (getRandomByRatio(this.globals.BSP.starsRatio)) {
+          if (getRandomByRatio(this.globals.starsRatio)) {
             this.globals.BSP.stars.add(
               this.physics.add
                 .image(

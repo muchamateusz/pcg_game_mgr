@@ -22,7 +22,7 @@ export default function drawTilesOnScreen() {
             .image(+tile.x + 25, +tile.y + 25, `NO_GO`)
             .setImmovable()
         );
-      } else if (getRandomByRatio(this.globals.CA.starsRatio)) {
+      } else if (getRandomByRatio(this.globals.starsRatio)) {
         this.globals.CA.stars.add(
           this.physics.add
             .image(+tile.x + 25, +tile.y + 25, `STAR`)

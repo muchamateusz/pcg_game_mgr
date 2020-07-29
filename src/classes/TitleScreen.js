@@ -1,5 +1,5 @@
 import "phaser";
-import { ALGORITHMS, config } from "../commons/globalVariables";
+import { ALGORITHMS, config, defaultGlobals } from "../commons/globalVariables";
 
 export default class TitleScreen extends Phaser.Scene {
   constructor(globals) {
@@ -23,16 +23,31 @@ export default class TitleScreen extends Phaser.Scene {
         name: ALGORITHMS.BSP,
         value: "- BINARILY PARTITIONATED SPACE",
         y: 3,
+        prompt: {
+          message: "Type amount of splits (2 splits = 4 rooms, 3 = 8, 4 = 16):",
+          key: "complexity",
+          value: this.globals[ALGORITHMS.BSP].complexity
+        }
       },
       {
         name: ALGORITHMS.CA,
         value: "- CELLULAR AUTOMATA",
         y: 4,
+        prompt: {
+          message: "Type amount of generation iterations:",
+          key: "epochs",
+          value: this.globals[ALGORITHMS.CA].epochs
+        }
       },
       {
         name: ALGORITHMS.DW,
         value: "- DRUNKARD WALKER",
         y: 5,
+        prompt: {
+          message: "Type amount of steps, each walker should be making:",
+          key: "howLongWalk",
+          value: this.globals[ALGORITHMS.DW].howLongWalk
+        }
       },
     ];
     this.add.text(
@@ -57,6 +72,9 @@ export default class TitleScreen extends Phaser.Scene {
       );
       text.setInteractive({ useHandCursor: true });
       text.on("pointerdown", () => {
+        const value = prompt(opt.prompt.message, opt.prompt.value);
+        defaultGlobals[opt.name][opt.prompt.key] = +value;
+        this.globals[opt.name][opt.prompt.key] = +value;
         config.whichAlgorithm = opt.name;
         this.scene.start("engine");
         this.scene.destroy("title_screen");
@@ -72,7 +90,7 @@ export default class TitleScreen extends Phaser.Scene {
     });
     this.add.text(
       mapSize / 2 - mapSize / 2.5,
-      1.125 * Math.round(window.innerHeight / 100) * 10,
+      1.125 * Math.round(window.innerHeight / 100) * 20,
       "ROGUELIKE GAME LIKE NO OTHER!",
       {
         fontFamily: 'Verdana, "Times New Roman", Tahoma, serif',
