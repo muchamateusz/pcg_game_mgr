@@ -1,5 +1,8 @@
 // const merge = require("webpack-merge");
 const path = require("path");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const base = require("./base");
 // const TerserPlugin = require("terser-webpack-plugin");
 module.exports = {
@@ -39,7 +42,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(["dist"], {
+    new CleanWebpackPlugin({
       root: path.resolve(__dirname, "../")
     }),
     new webpack.DefinePlugin({
