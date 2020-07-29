@@ -2,8 +2,7 @@ import "phaser";
 import CellularAutomataController from "../algorithms/cellular-automata/CellularAutomataController";
 import BinarySpacePartitioningController from "../algorithms/binary-space-partitioning/BinarySpacePartitioningController";
 import DrunkardWalkController from "../algorithms/drunkard-walk/DrunkardWalkController";
-import RandomlyPlaceRocksController from "../algorithms/randomly-place-rocks/RandomlyPlaceRocksController";
-import { ALGORITHMS, defaultGlobals } from "../commons/globalVariables";
+import { ALGORITHMS, defaultGlobals, config } from "../commons/globalVariables";
 import { getActualPoints } from "../commons/globalFunctions";
 
 export default class Engine extends Phaser.Scene {
@@ -38,7 +37,7 @@ export default class Engine extends Phaser.Scene {
   create() {
     this.globals.camera = this.cameras3d.add(85).setPosition(0, 0, 200);
     this.addBackground();
-    switch (this.globals.whichAlgorithm) {
+    switch (config.whichAlgorithm) {
       case ALGORITHMS.BSP:
         BinarySpacePartitioningController.call(this);
         break;
@@ -47,9 +46,6 @@ export default class Engine extends Phaser.Scene {
         break;
       case ALGORITHMS.DW:
         DrunkardWalkController.call(this);
-        break;
-      case ALGORITHMS.RPR:
-        RandomlyPlaceRocksController.call(this);
         break;
       default:
         break;
@@ -78,11 +74,12 @@ export default class Engine extends Phaser.Scene {
     reload.on("pointerdown", () => {
       this.globals = {
         ...defaultGlobals,
-        whichAlgorithm: this.globals.whichAlgorithm,
+        BSP: { ...defaultGlobals.BSP, grid: [[], [], [], [], []] },
+        CA: { ...defaultGlobals.CA, floodFill: {} },
+        DW: { ...defaultGlobals.DW },
+        player: this.globals.player
       };
-      this.registry.destroy();
-      this.events.off();
-      this.scene.restart();
+      this.scene.restart("engine");
     });
     const separator_1 = this.add.text(mapSize - 265, 0, " | ", style);
     const restart = this.add.text(mapSize - 245, 0, "RESTART", {
@@ -91,12 +88,15 @@ export default class Engine extends Phaser.Scene {
     });
     restart.setInteractive({ useHandCursor: true });
     restart.on("pointerdown", () => {
-      this.registry.destroy();
-      this.events.off();
-      this.scene.start("title_screen");
+      location.reload();
     });
     const separator_2 = this.add.text(mapSize - 155, 0, " | ", style);
-    this.globals.pointsInstance = this.add.text(mapSize - 105, 0, getActualPoints.call(this), style);
+    this.globals.pointsInstance = this.add.text(
+      mapSize - 105,
+      0,
+      getActualPoints.call(this),
+      style
+    );
 
     hudBg.depth = 3;
     this.globals.pointsInstance.depth = 4;

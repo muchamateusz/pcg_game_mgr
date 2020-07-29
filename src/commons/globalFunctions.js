@@ -3,6 +3,7 @@ import {
   globals,
   ALGORITHMS,
   defaultGlobals,
+  config,
 } from "./globalVariables";
 
 export const pickByDirection = (splittance, width, height) =>
@@ -30,7 +31,7 @@ export const getRandomByRatio = (ratio) =>
   Math.round((Math.random() + Number.EPSILON) * 100) / 100 < ratio;
 
 export const getPlayerCoords = (globals) => {
-  const { grid, primeId } = globals[globals.whichAlgorithm];
+  const { grid, primeId } = globals[config.whichAlgorithm];
   let iterator = 0;
   let firstFreeTile = undefined;
   while (!firstFreeTile && iterator < grid.length) {
@@ -45,7 +46,7 @@ export const getPlayerCoords = (globals) => {
 };
 
 export const getPortalCoords = (globals) => {
-  const { grid, primeId } = globals[globals.whichAlgorithm];
+  const { grid, primeId } = globals[config.whichAlgorithm];
   let iterator = grid.length - 1;
   let lastFreeTile = undefined;
   let lastFreeTiles = [];
@@ -111,18 +112,20 @@ export function putHeroAndDoorOnMap(algorithm) {
   this.physics.add.collider(
     this.globals.player,
     this.globals.exit,
-    reload.bind(this)
+    finishAndReload()
   );
 }
 
-export function reload() {
-  this.globals.points = 0;
-  this.globals[this.globals.whichAlgorithm].grid =
-    defaultGlobals[this.globals.whichAlgorithm].grid;
-  this.globals.heroSpeed =
-    defaultGlobals.heroSpeed + this.globals.heroSpeed * 0.1;
-  this.registry.destroy();
-  this.events.off();
+export function finishAndReload() {
+  const heroSpeed = this.globals.heroSpeed;
+  this.globals = {
+    ...defaultGlobals,
+    BSP: { ...defaultGlobals.BSP, grid: [[], [], [], [], []] },
+    CA: { ...defaultGlobals.CA, floodFill: {} },
+    DW: { ...defaultGlobals.DW },
+    player: this.globals.player
+  };
+  this.globals.heroSpeed += heroSpeed * 0.1;
   this.scene.restart("engine");
 }
 
@@ -135,6 +138,6 @@ export function addColliders(targets) {
 }
 export function getActualPoints() {
   return `${this.globals.points} / ${
-    this.globals[this.globals.whichAlgorithm].stars.children.entries.length
+    this.globals[config.whichAlgorithm].stars.children.entries.length
   }`;
 }

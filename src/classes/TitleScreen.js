@@ -1,5 +1,5 @@
 import "phaser";
-import { ALGORITHMS } from "../commons/globalVariables";
+import { ALGORITHMS, config } from "../commons/globalVariables";
 
 export default class TitleScreen extends Phaser.Scene {
   constructor(globals) {
@@ -57,7 +57,7 @@ export default class TitleScreen extends Phaser.Scene {
       );
       text.setInteractive({ useHandCursor: true });
       text.on("pointerdown", () => {
-        this.globals.whichAlgorithm = opt.name;
+        config.whichAlgorithm = opt.name;
         this.scene.start("engine");
         this.scene.destroy("title_screen");
       });
