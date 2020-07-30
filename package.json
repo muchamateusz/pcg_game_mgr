@@ -34,6 +34,8 @@
   "dependencies": {
     "@babel/preset-react": "^7.10.4",
     "babel-preset-react": "^6.24.1",
+    "circular-dependency-plugin": "^5.2.0",
+    "copy-webpack-plugin": "^6.0.3",
     "lodash": "^4.17.19",
     "path": "^0.12.7",
     "phaser": "^3.24.1",
