@@ -123,7 +123,7 @@ export function finishAndReload() {
     BSP: { ...defaultGlobals.BSP, grid: [[], [], [], [], []] },
     CA: { ...defaultGlobals.CA, floodFill: {} },
     DW: { ...defaultGlobals.DW },
-    player: this.globals.player
+    player: this.globals.player,
   };
   this.globals.heroSpeed += heroSpeed * 0.1;
   this.scene.restart("engine");
@@ -140,4 +140,13 @@ export function getActualPoints() {
   return `${this.globals.points} / ${
     this.globals[config.whichAlgorithm].stars.children.entries.length
   }`;
+}
+
+export function getProperMapSize() {
+  const { innerHeight, innerWidth } = window;
+  return (((
+    innerHeight < innerWidth 
+      ? innerHeight 
+      : innerWidth
+  ) / 100).toFixed() * 100 - 50);
 }

@@ -1,3 +1,5 @@
+import { getProperMapSize } from "./globalFunctions";
+
 export const ALGORITHMS = {
   BSP: "BSP", // "BINARY_SPACE_PARTITIONING",
   CA: "CA", // "CELLULAR_AUTOMATA",
@@ -5,7 +7,7 @@ export const ALGORITHMS = {
   RPR: "RPR", // "PSEUDO_RANDOM_NUMBER_GENERATION"
 };
 export let defaultGlobals = {
-  mapSize: (window.innerHeight / 100).toFixed() * 100 - 50,
+  mapSize: getProperMapSize(),
   heroSpeed: 100,
   backgroundTileSize: 50,
   player: undefined,
@@ -49,7 +51,7 @@ export let globals = JSON.parse(JSON.stringify(defaultGlobals));
 
 export let config = {
   whichAlgorith: undefined,
-  type: Phaser.AUTO,
+  type: Phaser.CANVAS,
   backgroundColor: 0x000000,
   width: globals.mapSize,
   height: globals.mapSize,
