@@ -11,7 +11,7 @@ module.exports = {
   output: {
     filename: "index_bundle.js",
     path: path.resolve("dist"),
-    publicPath: "/pcg_game_mgr/dist/",
+    publicPath: "/pcg_game_mgr/",
   },
   resolve: {
     modules: [path.resolve(__dirname, "src"), "node_modules"]
