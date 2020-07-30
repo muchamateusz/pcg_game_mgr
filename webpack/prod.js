@@ -9,24 +9,19 @@ module.exports = {
   mode: "production",
   entry: "./src/index.js",
   output: {
-    filename: "[name].bundle.js",
-    path: path.resolve(__dirname, "../dist"),
+    filename: "index_bundle.js",
+    path: path.resolve("dist"),
     publicPath: "/",
   },
   resolve: {
-    modules: [path.resolve(__dirname, "src"), "node_modules"],
+    modules: [path.resolve(__dirname, "src"), "node_modules"]
   },
   devtool: "cheap-module-eval-source-map",
-  devServer: {
-    hot: true,
-    watchContentBase: true,
-    publicPath: "/",
-  },
   module: {
     rules: [
       {
         test: /\.css$/,
-        use: [{ loader: "style-loader" }, { loader: "css-loader" }],
+        use: [{ loader: "style-loader" }, { loader: "css-loader" }]
       },
       {
         test: /\.js$/,
