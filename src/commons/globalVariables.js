@@ -16,7 +16,6 @@ export let defaultGlobals = {
   gameSceneBg: undefined,
   titleSceneBg: undefined,
   cursors: undefined,
-  camera: undefined,
   lastHeroPosition: undefined,
   starsRatio: 0.2,
   BSP: {
@@ -51,7 +50,7 @@ export let globals = JSON.parse(JSON.stringify(defaultGlobals));
 
 export let config = {
   whichAlgorith: undefined,
-  type: Phaser.CANVAS,
+  type: Phaser.AUTO,
   backgroundColor: 0x000000,
   width: globals.mapSize,
   height: globals.mapSize,
