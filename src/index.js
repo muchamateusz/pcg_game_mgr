@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import Engine from "./classes/Engine";
 import TitleScreen from "./classes/TitleScreen";
 import { globals, config } from "./commons/globalVariables";
+import "regenerator-runtime/runtime.js";
 import "./index.css";
 
 window.onload = () => {
