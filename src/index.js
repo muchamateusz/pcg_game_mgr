@@ -3,10 +3,14 @@ import Engine from "./classes/Engine";
 import TitleScreen from "./classes/TitleScreen";
 import { globals, config } from "./commons/globalVariables";
 import "./index.css";
-if (process.env.NODE_ENV !== 'production') {
-   console.log('Looks like we are in development mode!');
-}
+
+export let IMAGE_URL = "./";
+
 window.onload = () => {
+  if (process.env.NODE_ENV === "dev") {
+    console.log("Looks like we are in development mode!");
+    IMAGE_URL = "../../";
+  }
   const game = new Phaser.Game(config);
   game.scene.add("title_screen", new TitleScreen(globals));
   game.scene.add("engine", new Engine(globals));
