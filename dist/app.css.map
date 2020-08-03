@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///index.css"],"names":[],"mappings":"AAAA;EACE,SAAS;EACT,UAAU;EACV,0BAA0B;AAC5B;AACA;EACE,iBAAiB;EACjB,cAAc;AAChB","file":"app.css","sourcesContent":["body {\r\n  margin: 0;\r\n  padding: 0;\r\n  background-color: darkgrey;\r\n}\r\nbody > canvas {\r\n  margin: 10px auto;\r\n  display: block;\r\n}\r\n"],"sourceRoot":""}
