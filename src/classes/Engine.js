@@ -15,7 +15,7 @@ export default class Engine extends Phaser.Scene {
   preload() {
     this.gWidht = this.sys.game.config.width;
     this.gHeight = this.sys.game.config.height;
-    this.load.image("HUD_BG", `${IMAGE_URL}public/assets/hud_text_backgound.png`);
+    this.load.image("HUD_BG", `${IMAGE_URL}hud_text_backgound.png`);
     this.load.image("ICE_WALL", `${IMAGE_URL}public/assets/ice_wall.png`);
     this.load.image("ROCK", `${IMAGE_URL}public/assets/rock.png`);
     this.load.image("BACKGROUND", `${IMAGE_URL}public/assets/sand.png`);
