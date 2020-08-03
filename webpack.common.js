@@ -2,6 +2,8 @@ const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+
 module.exports = {
   entry: {
     app: "./src/index.js",
@@ -15,6 +17,9 @@ module.exports = {
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       title: "Production",
+    }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: "public/assets", to: "pcg_game_mgr/images" }],
     }),
   ],
   output: {
