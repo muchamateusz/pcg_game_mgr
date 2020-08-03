@@ -7,14 +7,15 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "production",
+  devtool: "eval-source-map",
   entry: [
     './node_modules/regenerator-runtime/runtime.js',
     "./src/index.js"
   ],
   output: {
-    filename: "index_bundle.js",
     path: path.resolve("dist"),
-    publicPath: "/pcg_game_mgr/",
+    filename: "index_bundle.js",
+    publicPath: "/",
   },
   resolve: {
     modules: [path.resolve(__dirname, "src"), "node_modules"]
