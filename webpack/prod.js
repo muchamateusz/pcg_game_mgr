@@ -7,7 +7,6 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "production",
-  devtool: "eval-source-map",
   entry: [
     './node_modules/regenerator-runtime/runtime.js',
     "./src/index.js"
@@ -68,7 +67,7 @@ module.exports = {
       WEBGL_RENDERER: JSON.stringify(true),
     }),
     new HtmlWebpackPlugin({
-      template: "index.html",
+      template: "./index.html",
       filename: "index.html",
       inject: "body",
     }),
