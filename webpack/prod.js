@@ -77,7 +77,7 @@ module.exports = {
       cwd: process.cwd(),
     }),
     new CopyWebpackPlugin({
-      patterns: [{ from: "public/assets", to: "public/assets" }],
+      patterns: [{ from: "public/assets", to: "pcg_game_mgr/public/assets" }],
     }),
   ],
 };
