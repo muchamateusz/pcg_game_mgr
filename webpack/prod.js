@@ -7,7 +7,10 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "production",
-  entry: "./src/index.js",
+  entry: [
+    './node_modules/regenerator-runtime/runtime.js',
+    "./src/index.js"
+  ],
   output: {
     filename: "index_bundle.js",
     path: path.resolve("dist"),
