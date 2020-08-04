@@ -16,13 +16,13 @@ export default class Engine extends Phaser.Scene {
     this.gWidht = this.sys.game.config.width;
     this.gHeight = this.sys.game.config.height;
     this.load.image("HUD_BG", `${IMAGE_URL}hud_text_backgound.png`);
-    this.load.image("ICE_WALL", `${IMAGE_URL}public/assets/ice_wall.png`);
-    this.load.image("ROCK", `${IMAGE_URL}public/assets/rock.png`);
-    this.load.image("BACKGROUND", `${IMAGE_URL}public/assets/sand.png`);
-    this.load.image("STAR", `${IMAGE_URL}public/assets/star.png`);
-    this.load.image("NO_GO", `${IMAGE_URL}public/assets/ca_no_go_zone.png`);
-    this.load.image("DOOR", `${IMAGE_URL}public/assets/door.png`);
-    this.load.spritesheet("HERO", `${IMAGE_URL}public/assets/hero.png`, {
+    this.load.image("ICE_WALL", `${IMAGE_URL}ice_wall.png`);
+    this.load.image("ROCK", `${IMAGE_URL}rock.png`);
+    this.load.image("BACKGROUND", `${IMAGE_URL}sand.png`);
+    this.load.image("STAR", `${IMAGE_URL}star.png`);
+    this.load.image("NO_GO", `${IMAGE_URL}ca_no_go_zone.png`);
+    this.load.image("DOOR", `${IMAGE_URL}door.png`);
+    this.load.spritesheet("HERO", `${IMAGE_URL}hero.png`, {
       frameWidth: 32,
       frameHeight: 48,
     });
